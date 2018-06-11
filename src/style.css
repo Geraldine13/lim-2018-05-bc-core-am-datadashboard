@@ -1,0 +1,14 @@
+header {
+    background-color: aqua;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    
+}
+
+img {
+    margin: 0;
+    padding: 0;
+}
