@@ -3,10 +3,11 @@ body {
     color: #333333;
     margin: 0;
     padding: 0;
+    height: 100%;
  }
 
  #logo {
-    background-color: aqua;
+    background-color: white|;
     background-attachment: fixed;
     margin: 0;
     padding: 2em 2em;
@@ -21,7 +22,7 @@ body {
     font-size: 1em;
     box-sizing: border-box;
     width: 250px;
-    height: 700px;
+    height: 655px;
     padding: 0em 2em 0em 2em;
     margin: 0;
     display: inline;
@@ -29,10 +30,10 @@ body {
  }
  
  #showing {
-    background-color: blueviolet;
+    background-color:white;
     font-family: 'Open Sans', sans-serif;
     width: calc(100% - 250px);
-    height: 700px;
+    height: 655px;
     margin: 0;
     padding: 0em 0em 0em 2em;
     box-sizing: border-box;
@@ -45,9 +46,15 @@ main {
     overflow: auto;
 }
 
+hr {
+    margin: 0;
+    padding: 0;
+}
+
  footer {
     box-sizing: border-box;
-    background-color: chartreuse;
+    background-color:black;
+    color: white;
     font-family: 'Open Sans', sans-serif;
     padding: 0.5em 0.5em;
  }
