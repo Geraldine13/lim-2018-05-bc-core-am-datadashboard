@@ -1,14 +1,67 @@
-header {
-    background-color: aqua;
+body {
     background-size: 100vw 100vh;
+    font-family: 'Bitter', serif;
+    color: #333333;
+ }
+ 
+ #logo {
+    background-color: aqua;
     background-attachment: fixed;
     margin: 0;
     padding: 0;
+    border: 0;
     text-align: center;
-    
-}
-
-img {
+ }
+ 
+ #verticalBar {
+    background-color: #ffc107;
+    font-family: 'Bitter' serif;
+    font-weight: bold;
+    font-size: 1em;
+    box-sizing: border-box;
+    width: 15%;
+    height: ;
+    padding: 0em 2em 0em 2em;
     margin: 0;
-    padding: 0;
-}
+    display: inline-block;
+ }
+ 
+ #horizontalBar {
+    background-color: #ffc107;
+    font-family: 'Bitter', serif;
+    font-weight: bold;
+    box-sizing: border-box;
+    font-size: 1em;
+    padding: 0em 0em 0em 2em;
+    width: 84%;
+    height: 50px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: top;
+ }
+ 
+ #showing {
+    background-color: blueviolet;
+    font-family: 'Open Sans', sans-serif;
+    width: 75%;
+    height: 500px;
+    box-sizing: border-box;
+    display: inline-block;
+
+ }
+ 
+ footer {
+    box-sizing: border-box;
+    background-color: chartreuse;
+    font-family: 'Open Sans', sans-serif;
+ }
+ 
+ @font-face {
+    font-family: Bitter;
+    src: url(https://fonts.googleapis.com/css?family=Bitter);
+ }
+ 
+ @font-face {
+    font-family: Open Sans;
+    src: url(https://fonts.googleapis.com/css?family=Open+Sans)
+ }
