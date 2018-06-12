@@ -2,6 +2,7 @@ body {
     font-family: 'Bitter', serif;
     color: #333333;
     margin: 0;
+    padding: 0;
  }
 
  #logo {
@@ -23,35 +24,27 @@ body {
     height: 700px;
     padding: 0em 2em 0em 2em;
     margin: 0;
-    display: inline-block;
- }
- 
- #horizontalBar {
-    background-color: #ffc107;
-    font-family: 'Bitter', serif;
-    font-weight: bold;
-    box-sizing: border-box;
-    font-size: 1em;
-    padding: 0em 0em 0em 2em;
-    width: 84%;
-    height: 50px;
-    margin: 0;
-    display: inline-block;
-    vertical-align: top;
+    display: inline;
+    float: left;
  }
  
  #showing {
     background-color: blueviolet;
     font-family: 'Open Sans', sans-serif;
-    width: 1329px;
+    width: calc(100% - 250px);
     height: 700px;
     margin: 0;
     padding: 0em 0em 0em 2em;
     box-sizing: border-box;
-    display: inline-block;
+    display: inline;
+    float: right;
     vertical-align: top;
  }
  
+main {
+    overflow: auto;
+}
+
  footer {
     box-sizing: border-box;
     background-color: chartreuse;
@@ -59,3 +52,16 @@ body {
     padding: 0.5em 0.5em;
  }
  
+
+ @media (max-width:480px) {
+     main {
+        width: 100%;
+     }
+
+     #verticalBar {
+        width: 100px;
+     }
+     #showing {
+         width: calc(100% - 100px)
+     }
+ }
