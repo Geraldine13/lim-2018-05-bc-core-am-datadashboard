@@ -2,15 +2,6 @@
 const li = document.getElementById('lima');
 const generacion = document.getElementById('generacion');
 const table = document.getElementById('container-user');
-//obteniendo data users
-function getUser(){
-    
-    const xhr = new XMLHttpRequest();
-        xhr.open('GET',`../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
-        xhr.onload = addUser;
-        xhr.onerror = handleError;
-        xhr.send();
-}
 
 function getUsers(){
     const xhr = new XMLHttpRequest();
@@ -24,22 +15,46 @@ function getUsers(){
                 //console.log('cohort',dataCohorts.id = 'lim-2018-03-pre-core-pw')
                 const computeUsersStats = () => {
                     const users = dataUsers.map(user => {
-                        function percent(){
-                            const objUser = dataProgress[user.id].intro;
-                            if(objUser.hasOwnProperty('percent')) {
-                                console.log(dataProgress[user.id].intro.percent)
+                        //console.log(dataProgress[user.id].intro.units)
+                        const percentProgress = () =>{
+                            if(dataProgress[user.id].hasOwnProperty('intro')) {
+                                if(dataProgress[user.id].intro.hasOwnProperty('percent')) {
+                                    return dataProgress[user.id].intro.percent;
+                                } 
+                            } 
+                        }
+                        const exercisesProgress = () => {
+                            if(dataProgress[user.id].hasOwnProperty('intro')){
+                              if(dataProgress[user.id].intro.hasOwnProperty('units')) {
+                                if(dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].hasOwnProperty('exercises')){
+                                    return Object.values(dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].exercises).length
+                                }
+                              }
                             }
                         }
-                        if(user.signupCohort === 'lim-2018-03-pre-core-pw'){
-                            //console.log(dataProgress[user.id].intro.percent)
-                            const obj = {
-                                percent: percent()
-                            };
-                            return obj;
+                        
+                        const exercisesCompleted = () => {
+                            if(dataProgress[user.id].hasOwnProperty('intro')){
+                              if(dataProgress[user.id].intro.hasOwnProperty('units')) {
+                                if(dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].hasOwnProperty('completed')){
+                                    return dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].completed;
+                                }
+                              }
+                            }
                         }
-                        /*  */
+                           
+                        const obj = {
+                            percent: percentProgress(),
+                            exercises: {
+                                total: exercisesProgress(),
+                                completed: exercisesCompleted(),
+                                //percent: 
+
+                            }
+                        };
+                            return obj;
                     });
-                //console.log(users);
+                console.log(users);
                 }
                 computeUsersStats()
             }
@@ -49,7 +64,14 @@ function getUsers(){
         xhr.onerror = handleError;
         xhr.send();
 } // 
-//obteniendo data cohorts
+li.addEventListener('click', function(e){
+    generacion.innerHTML = '';
+    getUsers();
+});
+function handleError(){
+    console.log('se ha presentado un error');
+}
+/* obteniendo data cohorts
 function getCohorts(){
     const xhrCohorts = new XMLHttpRequest();
     xhrCohorts.open('GET', `../data/cohorts.json`);
@@ -57,7 +79,7 @@ function getCohorts(){
     xhrCohorts.onerror = handleError;
     xhrCohorts.send(); 
 }
-//obteniendo data progress
+obteniendo data progress
 function getProgress(){
     const xhrCohorts = new XMLHttpRequest();
     xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
@@ -65,9 +87,17 @@ function getProgress(){
     xhrCohorts.onerror = handleError;
     xhrCohorts.send(); 
 }
-function handleError(){
-    console.log('se ha presentado un error');
+obteniendo data users
+function getUser(){
+    
+    const xhr = new XMLHttpRequest();
+        xhr.open('GET',`../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
+        xhr.onload = addUser;
+        xhr.onerror = handleError;
+        xhr.send();
 }
+
+
 function addUser(){
     const data = JSON.parse(event.currentTarget.responseText);
     for (let i = 0; i < data.length; i++) {
@@ -78,7 +108,6 @@ function addUser(){
 }
 generacion.addEventListener('change', function(e){
     if(generacion.value === 'lim-2018-03-pre-core-pw'){
-
     table.innerHTML = '';
     getUser();
     }
@@ -112,13 +141,9 @@ window.computeUsersStats = (users, progress, courses) => {
        uObj[dataUser.id] = dataUser.name;
        return uObj;   
      
-    }); */
+    }); 
 }
 
-li.addEventListener('click', function(e){
-    generacion.innerHTML = '';
-    getCohorts();
-});
 function addCohorts(){
     const dataCohorts = JSON.parse(event.currentTarget.responseText);
     //console.log(dataCohorts[0]);
@@ -129,4 +154,4 @@ function addCohorts(){
         option.innerText += dataCohorts[i].id ;
         generacion.appendChild(option);
     }
-}
+} */
