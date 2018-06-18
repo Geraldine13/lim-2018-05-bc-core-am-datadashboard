@@ -7,54 +7,74 @@ function getUsers(){
     const xhr = new XMLHttpRequest();
         xhr.open('GET',`../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
         xhr.onload = function () {
-            const dataUsers = JSON.parse(event.currentTarget.responseText);
+            const users = JSON.parse(event.currentTarget.responseText);
             const xhrCohorts = new XMLHttpRequest();
             xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
             xhrCohorts.onload = function () {
-                const dataProgress = JSON.parse(event.currentTarget.responseText);
+                const progress = JSON.parse(event.currentTarget.responseText);
                 //console.log('cohort',dataCohorts.id = 'lim-2018-03-pre-core-pw')
                 const computeUsersStats = () => {
-                    const users = dataUsers.map(user => {
-                        //console.log(dataProgress[user.id].intro.units)
+                    const dataUser = users.map(user => {
+                        //console.log(progress[user.id].intro.units)
                         const percentProgress = () =>{
-                            if(dataProgress[user.id].hasOwnProperty('intro')) {
-                                if(dataProgress[user.id].intro.hasOwnProperty('percent')) {
-                                    return dataProgress[user.id].intro.percent;
+                            /* if(progress[user.id].hasOwnProperty('intro')) {
+                                if(progress[user.id].intro.hasOwnProperty('percent')) {
+                                    return progress[user.id].intro.percent;
                                 } 
-                            } 
+                            }  */
+                            const percent =[];
+                            Object.keys(progress[user.id]).map( course =>{
+                                if (progress[user.id][course].hasOwnProperty('percent')) {
+                                     percent.push(progress[user.id][course].percent);
+                                }
+                            });
+                            return parseInt(percent.toString());
                         }
                         const exercisesProgress = () => {
-                            if(dataProgress[user.id].hasOwnProperty('intro')){
-                              if(dataProgress[user.id].intro.hasOwnProperty('units')) {
-                                if(dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].hasOwnProperty('exercises')){
-                                    return Object.values(dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].exercises).length
+                            const exercise = [];
+                            Object.keys(progress[user.id]).map(course => {
+                                Object.keys(progress[user.id][course].units).map(leccion => {
+                                    Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
+                                                  if(progress[user.id][course].units[leccion].parts[lectura].hasOwnProperty('exercises')){
+                                             exercise.push(Object.values(progress[user.id][course].units[leccion].parts[lectura].exercises).length);
+
+                                            }
+                                              })  
+                                        })
+                            });
+                            return exercise;
+                            /* if(progress[user.id].hasOwnProperty('intro')){
+                              if(progress[user.id].intro.hasOwnProperty('units')) {
+                                if(progress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].hasOwnProperty('exercises')){
+                                    return Object.values(progress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].exercises).length
                                 }
                               }
-                            }
+                            } */
                         }
                         
-                        const exercisesCompleted = () => {
-                            if(dataProgress[user.id].hasOwnProperty('intro')){
-                              if(dataProgress[user.id].intro.hasOwnProperty('units')) {
-                                if(dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].hasOwnProperty('completed')){
-                                    return dataProgress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].completed;
+                       /*  const exercisesCompleted = () => {
+                            if(progress[user.id].hasOwnProperty('intro')){
+                              if(progress[user.id].intro.hasOwnProperty('units')) {
+                                if(progress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].hasOwnProperty('completed')){
+                                    return progress[user.id].intro.units['02-variables-and-data-types'].parts['06-exercises'].completed;
                                 }
                               }
                             }
-                        }
+                        } */
+                      
                            
                         const obj = {
                             percent: percentProgress(),
                             exercises: {
-                                total: exercisesProgress(),
+                                total: exercisesProgress(),/* 
                                 completed: exercisesCompleted(),
-                                //percent: 
+                                percent: exercisesPercent(), */
 
                             }
                         };
                             return obj;
                     });
-                console.log(users);
+                console.log(dataUser);
                 }
                 computeUsersStats()
             }
@@ -114,11 +134,11 @@ generacion.addEventListener('change', function(e){
 });
 
 window.computeUsersStats = (users, progress, courses) => {
-    //console.log(dataProgress['00hJv4mzvqM3D9kBy3dfxoJyFV82']);
+    //console.log(progress['00hJv4mzvqM3D9kBy3dfxoJyFV82']);
     
-    /* const users = dataUsers.map(dataUserusersWithStats => {
+    /* const users = users.map(dataUserusersWithStats => {
         stats: {
-            percente: dataProgress[dataUserusersWithStats.id].intro.percent ;
+            percente: progress[dataUserusersWithStats.id].intro.percent ;
             exercises:{
                 total:;
                 completed:;
