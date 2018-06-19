@@ -1,5 +1,5 @@
 window.computeUsersStats = (users, progress) => {
-  const dataUser = users.map(user => {
+  const usersWithStats = users.map(user => {
     const percentProgress = () => {
       const percent = [];
       Object.keys(progress[user.id]).map(course => {
@@ -53,19 +53,21 @@ window.computeUsersStats = (users, progress) => {
       if(exercisesTotal() === 0) {
         return percent = 0;
       } else {
-        return percent = (exercisesCompleted()*100)/exercisesTotal();
+        return percent = (exercisesCompleted() * 100 ) / exercisesTotal();
       }
     }
-    const obj = {
+    const stats = {
+      stats:{
       percent: percentProgress(),
       exercises: {
         total: exercisesTotal(),
         completed: exercisesCompleted(),
         percent: percentExercises(),
-
       }
-    };
-    return obj;
+    }
+  };
+    return stats;
   });
-  console.log(dataUser);
+  console.log(usersWithStats)
+  return usersWithStats;
 }

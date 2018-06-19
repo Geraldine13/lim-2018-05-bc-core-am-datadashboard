@@ -11,6 +11,7 @@ function getUsers() {
     xhrCohorts.onload = function () {
       const progress = JSON.parse(event.currentTarget.responseText);
       computeUsersStats(users, progress);
+      addUser(users)
     }
     xhrCohorts.onerror = handleError;
     xhrCohorts.send();
@@ -29,20 +30,14 @@ function getCohorts() {
   xhrCohorts.onerror = handleError;
   xhrCohorts.send();
 }
-function addUser() {
-  const data = JSON.parse(event.currentTarget.responseText);
-  for (let i = 0; i < data.length; i++) {
+function addUser(users) {
+  for (let i = 0; i < users.length; i++) {
     let tr = document.createElement('tr');
-    tr.innerText += data[i].name;
+    tr.innerText += users[i].name;
     table.appendChild(tr);
   }
 }
-generacion.addEventListener('change', function (e) {
-  if (generacion.value === 'lim-2018-03-pre-core-pw') {
-    table.innerHTML = '';
-    getUser();
-  }
-});
+
 function addCohorts() {
   const dataCohorts = JSON.parse(event.target.responseText);
   /*  query = li.value;
@@ -58,11 +53,18 @@ console.log(filterse(query)) */
     option.innerText += dataCohorts[i].id;
     generacion.appendChild(option);
   }
+  generacion.addEventListener('change', function (e) {
+    if (generacion.value === 'lim-2018-03-pre-core-pw') {
+      table.innerHTML = '';
+      getUsers();
+    } else {
+      table.innerHTML = 'no hay datos para mostrar';
+    }
+  });
 }
 
 li.addEventListener('click', function (e) {
   e.preventDefault();
   generacion.innerHTML = '';
   getCohorts();
-  getUsers();
 });
