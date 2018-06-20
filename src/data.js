@@ -1,5 +1,7 @@
-window.computeUsersStats = (users, progress) => {
+window.computeUsersStats = (users, progress, courses) => {
+  console.log(courses)
   const usersWithStats = users.map(user => {
+    
     const percentProgress = () => {
       const percent = [];
       Object.keys(progress[user.id]).map(course => {
@@ -32,13 +34,13 @@ window.computeUsersStats = (users, progress) => {
     }
     const exercisesCompleted = () => {
       const completed = [];
-      const initial = 0; 
+      const initial = 0;
       Object.keys(progress[user.id]).map(course => {
         Object.keys(progress[user.id][course].units).map(leccion => {
           Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
             if (progress[user.id][course].units[leccion].parts[lectura].hasOwnProperty('exercises')) {
-              Object.keys(progress[user.id][course].units[leccion].parts[lectura].exercises).map(exercise => {                      
-                if(progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].hasOwnProperty('completed')){
+              Object.keys(progress[user.id][course].units[leccion].parts[lectura].exercises).map(exercise => {
+                if (progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].hasOwnProperty('completed')) {
                   completed.push(progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].completed);
                 }
               })
@@ -46,26 +48,26 @@ window.computeUsersStats = (users, progress) => {
           })
         })
       });
-        return completed.reduce((a,b) => a+b,initial)
+      return completed.reduce((a, b) => a + b, initial)
     }
-    const percentExercises = () =>{
+    const percentExercises = () => {
       let percent = 0;
-      if(exercisesTotal() === 0) {
+      if (exercisesTotal() === 0) {
         return percent = 0;
       } else {
-        return percent = (exercisesCompleted() * 100 ) / exercisesTotal();
+        return percent = (exercisesCompleted() * 100) / exercisesTotal();
       }
     }
     const stats = {
-      stats:{
-      percent: percentProgress(),
-      exercises: {
-        total: exercisesTotal(),
-        completed: exercisesCompleted(),
-        percent: percentExercises(),
+      stats: {
+        percent: percentProgress(),
+        exercises: {
+          total: exercisesTotal(),
+          completed: exercisesCompleted(),
+          percent: percentExercises(),
+        }
       }
-    }
-  };
+    };
     return stats;
   });
   //console.log(usersWithStats)
