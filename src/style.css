@@ -72,3 +72,38 @@ hr {
          width: calc(100% - 100px)
      }
  }
+
+ .table{
+     border: 1px solid #000;
+     border-collapse: collapse;
+     min-width: 500px;
+     max-height: 300px;
+     overflow-x:auto;
+ }
+ .table td,th{
+     border: 1px solid #000;
+     padding: 10px;
+ }
+ .table tr:hover{
+     background:#ccc;
+ }
+ .table td:hover{
+     background: #888;
+     color: black;
+ }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
