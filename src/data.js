@@ -1,52 +1,73 @@
-const li = document.getElementById('lima');
-const generacion = document.getElementById('generacion');
-const table = document.getElementById('container-user');
-//obteniendo data Cohorts
-function getCohorts(){
-    const xhrCohorts = new XMLHttpRequest();
-    xhrCohorts.open('GET', `../data/cohorts.json`);
-    xhrCohorts.onload = addCohorts;
-    xhrCohorts.onerror = handleError;
-    xhrCohorts.send(); 
-}
-//conectando data user
-function getUser(){
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET',`../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
-    xhr.onload = addUser;
-    xhr.onerror = handleError;
-    xhr.send();
-}
-function handleError(){
-    console.log('se ha presentado un error');
-}
-li.addEventListener('click', function(e){
-    e.preventDefault();
-    generacion.innerHTML = '';
-    getCohorts();
-});
-function addCohorts(){
-    const dataCohorts = JSON.parse(event.currentTarget.responseText);
-    for(var i=0;i<dataCohorts.length;i++){
-        let option = document.createElement('option');
-        option.setAttribute('value',dataCohorts[i].id)
-        option.innerText += dataCohorts[i].id ;
-        generacion.appendChild(option);
+window.computeUsersStats = (users, progress) => {
+  const usersWithStats = users.map(user => {
+    const percentProgress = () => {
+      const percent = [];
+      Object.keys(progress[user.id]).map(course => {
+        if (progress[user.id][course].hasOwnProperty('percent')) {
+          percent.push(progress[user.id][course].percent);
+        }
+      });
+      if (percent[0] === undefined) {
+        return percent[0] = 0;
+      } else {
+        return percent[0];
+      }
     }
-}
-function addUser(){
-    const data = JSON.parse(event.currentTarget.responseText);
-    for (let i = 0; i < data.length; i++) {
-        let tr = document.createElement('tr');
-        tr.innerText += data[i].name;
-        table.appendChild(tr);
+    const exercisesTotal = () => {
+      const total = [];
+      Object.keys(progress[user.id]).map(course => {
+        Object.keys(progress[user.id][course].units).map(leccion => {
+          Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
+            if (progress[user.id][course].units[leccion].parts[lectura].hasOwnProperty('exercises')) {
+              total.push(Object.values(progress[user.id][course].units[leccion].parts[lectura].exercises).length);
+            }
+          })
+        })
+      });
+      if (total[0] === undefined) {
+        return total[0] = 0;
+      } else {
+        return total[0];
+      }
     }
-}
-generacion.addEventListener('change', function(e){
-    if(generacion.value === 'lim-2018-03-pre-core-pw'){
-    table.innerHTML = '';
-    getUser();
-    }else{
-        table.innerHTML = 'No hay datos para mostrar';
+    const exercisesCompleted = () => {
+      const completed = [];
+      const initial = 0; 
+      Object.keys(progress[user.id]).map(course => {
+        Object.keys(progress[user.id][course].units).map(leccion => {
+          Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
+            if (progress[user.id][course].units[leccion].parts[lectura].hasOwnProperty('exercises')) {
+              Object.keys(progress[user.id][course].units[leccion].parts[lectura].exercises).map(exercise => {                      
+                if(progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].hasOwnProperty('completed')){
+                  completed.push(progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].completed);
+                }
+              })
+            }
+          })
+        })
+      });
+        return completed.reduce((a,b) => a+b,initial)
     }
-});
+    const percentExercises = () =>{
+      let percent = 0;
+      if(exercisesTotal() === 0) {
+        return percent = 0;
+      } else {
+        return percent = (exercisesCompleted() * 100 ) / exercisesTotal();
+      }
+    }
+    const stats = {
+      stats:{
+      percent: percentProgress(),
+      exercises: {
+        total: exercisesTotal(),
+        completed: exercisesCompleted(),
+        percent: percentExercises(),
+      }
+    }
+  };
+    return stats;
+  });
+  //console.log(usersWithStats)
+  return usersWithStats;
+}
