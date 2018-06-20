@@ -1,6 +1,6 @@
 const lima = document.getElementById('lima');
 const generacion = document.getElementById('generacion');
-
+const show = document.getElementById('mostrarDatos'); 
 // Almacenando la data Cohorst en una variable
 const requestCohorts = '../data/cohorts.json';
 
@@ -14,22 +14,15 @@ function getCohorts() {
     xhrCohorts.send();
 }
 
-
-const idLima = requestCohorts.map(requestLima => requestLima.id === 'lim');
-const genLima = requestCohorts.filter(requestLima => requestLima.id === 'lim' );
-console.log(genLima);
-
-
-
 function handleSuccess () {
     const cohorts = request.response;
     console.log( this.response );
 }
 
+
 function handleError () {
     console.log( 'An error occurred 😞' );
 }
-
 
 /*function showUsers(jsonObj) {
     var myTable = document.createElement('th');
