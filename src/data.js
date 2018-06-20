@@ -68,6 +68,6 @@ window.computeUsersStats = (users, progress) => {
   };
     return stats;
   });
-  console.log(usersWithStats)
+  //console.log(usersWithStats)
   return usersWithStats;
 }

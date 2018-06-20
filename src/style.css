@@ -80,15 +80,15 @@ hr {
      max-height: 300px;
      overflow-x:auto;
  }
- .table td{
+ .table td,th{
      border: 1px solid #000;
-     padding: 20px;
+     padding: 10px;
  }
  .table tr:hover{
      background:#ccc;
  }
  .table td:hover{
-     background: #333333;
+     background: #888;
      color: black;
  }
 
