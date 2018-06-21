@@ -39,7 +39,7 @@ function getCohorts(callback) {
 }
 function addUser(users, progress) {
   const datos = computeUsersStats(users, progress);
-  users.length = 10;
+  // users.length = 10;
   for (let i = 0; i < users.length; i++) {
     let tr = document.createElement('tr');
     for (let j = 0; j < 1; j++) {
@@ -71,15 +71,8 @@ function addCohorts() {
     }
     return ar;
   })
+  console.log(ar)
 
-  generacion.addEventListener('change', function (e) {
-    if (generacion.value === 'lim-2018-03-pre-core-pw') {
-      tblBody.innerHTML = '';
-      getUsers();
-    } else {
-      tblBody.innerHTML = 'no hay datos para mostrar';
-    }
-  });
 }
 
 function filterSelect() {
@@ -94,10 +87,8 @@ function filterSelect() {
 
     sedeSelect.addEventListener('click', function (e) {
       e.preventDefault();
-
       let index = e.target.id;
       const dataFilter = filterItems(index);
-
       let s = query => {
         return dataFilter.filter(programa => {
           return programa.id.toLowerCase().indexOf(query.toLowerCase()) > -1
@@ -105,16 +96,22 @@ function filterSelect() {
       }
 
       program.addEventListener('change', function (e) {
-        e.preventDefault();
-
-        let valueProgram = e.target.value;
+        // generacion.innerHTML = '';
+        let valueProgram = program.value;
         let endFilter = s(valueProgram);
-
         for (i in endFilter) {
           let option = document.createElement('option');
           option.setAttribute('value', endFilter[i].id)
-          option.innerText += endFilter[i].id;
+          option.innerText = endFilter[i].id;
           generacion.appendChild(option);
+        }
+      });
+      generacion.addEventListener('change', function (e){
+        if (generacion.value === 'lim-2018-03-pre-core-pw') {
+        
+          getUsers();
+        } else {
+          tblBody.innerHTML = 'no hay datos para mostrar';
         }
       });
     });
