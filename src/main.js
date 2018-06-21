@@ -1,6 +1,9 @@
-const li = document.getElementById('lima');
+let sedeSelect = document.getElementById('selectSede');
+let program = document.getElementById('program');
+
 const generacion = document.getElementById('generacion');
 const tblBody = document.getElementById('container-user');
+
 function getUsers() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
@@ -20,13 +23,17 @@ function getUsers() {
   xhr.send();
 }
 function handleError() {
-  console.log('se ha presentado un error');
+  console.log('Se ha presentado un error');
 }
+
 //obteniendo data cohorts
-function getCohorts() {
+const baseCohorts = `../data/cohorts.json`;
+console.log(baseCohorts);
+
+function getCohorts(callback) {
   const xhrCohorts = new XMLHttpRequest();
-  xhrCohorts.open('GET', `../data/cohorts.json`);
-  xhrCohorts.onload = addCohorts;
+  xhrCohorts.open('GET', baseCohorts);
+  xhrCohorts.onload = callback;
   xhrCohorts.onerror = handleError;
   xhrCohorts.send();
 }
@@ -52,14 +59,9 @@ function addUser(users, progress) {
     tblBody.appendChild(tr);
   }
 }
+
 function addCohorts() {
   const dataCohorts = JSON.parse(event.target.responseText);
-  query = li.value;
-  console.log(query)
-  let filterse = query => {
-    return dataCohorts.filter(sede => sede.id.toLowerCase().indexOf(query.toLowerCase()) > -1);
-  }
-  console.log(filterse(query))
   const courses = dataCohorts.map(cohort => {
     let ar = [];
     if (cohort.hasOwnProperty('coursesIndex')) {
@@ -69,12 +71,7 @@ function addCohorts() {
     }
     return ar;
   })
-  for (i in dataCohorts) {
-    let option = document.createElement('option');
-    option.setAttribute('value', dataCohorts[i].id)
-    option.innerText += dataCohorts[i].id;
-    generacion.appendChild(option);
-  }
+
   generacion.addEventListener('change', function (e) {
     if (generacion.value === 'lim-2018-03-pre-core-pw') {
       tblBody.innerHTML = '';
@@ -84,8 +81,44 @@ function addCohorts() {
     }
   });
 }
-li.addEventListener('click', function (e) {
-  e.preventDefault();
-  generacion.innerHTML = '';
-  getCohorts();
-});
+
+function filterSelect() {
+  getCohorts((e) => {
+    const dataCohorts = JSON.parse(e.target.responseText);
+
+    const filterItems = query => {
+      return dataCohorts.filter(sede => {
+        return sede.id.toLowerCase().indexOf(query.toLowerCase()) > -1
+      });
+    }
+
+    sedeSelect.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      let index = e.target.id;
+      const dataFilter = filterItems(index);
+
+      let s = query => {
+        return dataFilter.filter(programa => {
+          return programa.id.toLowerCase().indexOf(query.toLowerCase()) > -1
+        });
+      }
+
+      program.addEventListener('change', function (e) {
+        e.preventDefault();
+
+        let valueProgram = e.target.value;
+        let endFilter = s(valueProgram);
+
+        for (i in endFilter) {
+          let option = document.createElement('option');
+          option.setAttribute('value', endFilter[i].id)
+          option.innerText += endFilter[i].id;
+          generacion.appendChild(option);
+        }
+      });
+    });
+  });
+}
+
+filterSelect()
