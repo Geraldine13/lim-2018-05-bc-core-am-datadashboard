@@ -12,7 +12,7 @@ function getUsers() {
     xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
     xhrCohorts.onload = function () {
       const progress = JSON.parse(event.currentTarget.responseText);
-      computeUsersStats(users, progress);
+      //computeUsersStats(users, progress);
       addUser(users, progress)
     }
     xhrCohorts.onerror = handleError;
@@ -35,37 +35,47 @@ function getCohorts(callback) {
 function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
-    const courses = dataCohorts.map(cohort => {
-      if (cohort.hasOwnProperty('coursesIndex')){
-        return Object.keys(cohort.coursesIndex).toString();
+    /* if(dataCohorts.id === generacion.value){
+      const courses = dataCohorts.map(course => {
+
+      })
+    } */
+    const courses = [];
+   for (cohort of dataCohorts){
+      if (cohort.hasOwnProperty('coursesIndex')) {
+        if (cohort.id === generacion.value) {
+           courses.push(Object.keys(cohort.coursesIndex).toString())
+          //console.log(generacion.value)
         }
-     })
-    //console.log((courses))
+      }
+   }
+   
+   console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
-   // users.length = 10;
-    for (let i = 0; i < users.length; i++) {  
+    // users.length = 10;
+    for (let i = 0; i < users.length; i++) {
       let tr = document.createElement('tr');
-        let celda = document.createElement('td');
-        let celda1 = document.createElement('td');
-        let celda2 = document.createElement('td');
-        let textoCelda = document.createTextNode(datos[i].stats.exercises.percent + '%');
-        let t = document.createTextNode(users[i].name);
-        const tCe = document.createTextNode(datos[i].stats.percent + '%')
-        celda.appendChild(textoCelda);
-        celda1.appendChild(t);
-        celda2.appendChild(tCe);
-        tr.appendChild(celda1);
-        tr.appendChild(celda2);
-        tr.appendChild(celda);
-        tblBody.appendChild(tr);
+      let celda = document.createElement('td');
+      let celda1 = document.createElement('td');
+      let celda2 = document.createElement('td');
+      let textoCelda = document.createTextNode(datos[i].stats.exercises.percent + '%');
+      let t = document.createTextNode(users[i].name);
+      const tCe = document.createTextNode(datos[i].stats.percent + '%')
+      celda.appendChild(textoCelda);
+      celda1.appendChild(t);
+      celda2.appendChild(tCe);
+      tr.appendChild(celda1);
+      tr.appendChild(celda2);
+      tr.appendChild(celda);
+      tblBody.appendChild(tr);
     }
-    
+
   })
 
 }
 function addCohorts() {
   const dataCohorts = JSON.parse(event.target.responseText);
- 
+
   for (i in dataCohorts) {
     let option = document.createElement('option');
     option.setAttribute('value', dataCohorts[i].id)
@@ -73,11 +83,13 @@ function addCohorts() {
     generacion.appendChild(option);
   }
   generacion.addEventListener('change', function (e) {
+    console.log(generacion.value)
     if (generacion.value === 'lim-2018-03-pre-core-pw') {
       tblBody.innerHTML = '';
       getUsers();
     } else {
       tblBody.innerHTML = 'no hay datos para mostrar';
+      getUsers();
     }
   });
 }
