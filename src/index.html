@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <title>Data Dashboard</title>
@@ -67,6 +68,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <div id="logo">
@@ -125,9 +127,16 @@
             </tr>
           </thead>
           <tbody id="container-user">
-
           </tbody>
         </table>
+        <div id="pagin">
+          <a id="prev" href="">&laquo;</a>
+          <a id="first" href="">first</a>
+          <a id="last" href="">Last</a>
+          <a id="next"href="">&raquo;</a>
+          <input id="total-row" type="hidden">
+          <input id="current-step" type="hidden" value="15">
+        </div>
       </div>
     </section>
 

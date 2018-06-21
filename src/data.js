@@ -1,10 +1,12 @@
 window.computeUsersStats = (users, progress, courses) => {
-  console.log(courses)
+  //console.log(courses)
   const usersWithStats = users.map(user => {
     
     const percentProgress = () => {
       const percent = [];
       Object.keys(progress[user.id]).map(course => {
+        //console.log(Object.keys(progress[user.id]))
+    //console.log(courses)
         if (progress[user.id][course].hasOwnProperty('percent')) {
           percent.push(progress[user.id][course].percent);
         }

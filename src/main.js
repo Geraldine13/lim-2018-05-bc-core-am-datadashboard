@@ -1,7 +1,8 @@
 const li = document.getElementById('lima');
 const generacion = document.getElementById('generacion');
 const tblBody = document.getElementById('container-user');
-
+let init = 0;
+let final = 15;
 function getUsers() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
@@ -11,7 +12,7 @@ function getUsers() {
     xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
     xhrCohorts.onload = function () {
       const progress = JSON.parse(event.currentTarget.responseText);
-      //computeUsersStats(users, progress);
+      computeUsersStats(users, progress);
       addUser(users, progress)
     }
     xhrCohorts.onerror = handleError;
@@ -36,15 +37,14 @@ function addUser(users, progress) {
     const dataCohorts = JSON.parse(event.target.responseText);
     const courses = dataCohorts.map(cohort => {
       if (cohort.hasOwnProperty('coursesIndex')){
-        return cohort.coursesIndex;
+        return Object.keys(cohort.coursesIndex).toString();
         }
      })
-     console.log(courses)
+    //console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
    // users.length = 10;
-    for (let i = 0; i < users.length; i++) {
+    for (let i = 0; i < users.length; i++) {  
       let tr = document.createElement('tr');
-      for (let j = 0; j < 1; j++) {
         let celda = document.createElement('td');
         let celda1 = document.createElement('td');
         let celda2 = document.createElement('td');
@@ -57,9 +57,9 @@ function addUser(users, progress) {
         tr.appendChild(celda1);
         tr.appendChild(celda2);
         tr.appendChild(celda);
-      }
-      tblBody.appendChild(tr);
+        tblBody.appendChild(tr);
     }
+    
   })
 
 }
