@@ -35,11 +35,6 @@ function getCohorts(callback) {
 function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
-    /* if(dataCohorts.id === generacion.value){
-      const courses = dataCohorts.map(course => {
-
-      })
-    } */
     const courses = [];
    for (cohort of dataCohorts){
       if (cohort.hasOwnProperty('coursesIndex')) {
@@ -50,7 +45,7 @@ function addUser(users, progress) {
       }
    }
    
-   console.log((courses))
+   //console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
     // users.length = 10;
     for (let i = 0; i < users.length; i++) {
@@ -83,7 +78,7 @@ function addCohorts() {
     generacion.appendChild(option);
   }
   generacion.addEventListener('change', function (e) {
-    console.log(generacion.value)
+    //console.log(generacion.value)
     if (generacion.value === 'lim-2018-03-pre-core-pw') {
       tblBody.innerHTML = '';
       getUsers();
