@@ -28,7 +28,6 @@ function handleError() {
 
 //obteniendo data cohorts
 const baseCohorts = `../data/cohorts.json`;
-console.log(baseCohorts);
 
 function getCohorts(callback) {
   const xhrCohorts = new XMLHttpRequest();
@@ -38,43 +37,49 @@ function getCohorts(callback) {
   xhrCohorts.send();
 }
 function addUser(users, progress) {
-  const datos = computeUsersStats(users, progress);
-  // users.length = 10;
-  for (let i = 0; i < users.length; i++) {
-    let tr = document.createElement('tr');
-    for (let j = 0; j < 1; j++) {
+  getCohorts(() => {
+    const dataCohorts = JSON.parse(event.target.responseText);
+    const courses = [];
+   for (cohort of dataCohorts){
+      if (cohort.hasOwnProperty('coursesIndex')) {
+        if (cohort.id === generacion.value) {
+           courses.push(Object.keys(cohort.coursesIndex).toString())
+          //console.log(generacion.value)
+        }
+      }
+   }
+   
+   //console.log((courses))
+    const datos = computeUsersStats(users, progress, courses);
+    // users.length = 10;
+    for (let i = 0; i < users.length; i++) {
+      let tr = document.createElement('tr');
       let celda = document.createElement('td');
       let celda1 = document.createElement('td');
       let celda2 = document.createElement('td');
+      let celda3 = document.createElement('td');
+      let celda4 = document.createElement('td');
       let textoCelda = document.createTextNode(datos[i].stats.exercises.percent + '%');
       let t = document.createTextNode(users[i].name);
       const tCe = document.createTextNode(datos[i].stats.percent + '%')
+      const tCe2 = document.createTextNode(datos[i].stats.reads.percent + '%')
+      const tCe3 = document.createTextNode(datos[i].stats.quizzes.percent + '%')
       celda.appendChild(textoCelda);
       celda1.appendChild(t);
       celda2.appendChild(tCe);
+      celda3.appendChild(tCe2);
+      celda4.appendChild(tCe3);
       tr.appendChild(celda1);
       tr.appendChild(celda2);
       tr.appendChild(celda);
+      tr.appendChild(celda3);
+      tr.appendChild(celda4);
+      tblBody.appendChild(tr);
     }
-    tblBody.appendChild(tr);
-  }
-}
 
-function addCohorts() {
-  const dataCohorts = JSON.parse(event.target.responseText);
-  const courses = dataCohorts.map(cohort => {
-    let ar = [];
-    if (cohort.hasOwnProperty('coursesIndex')) {
-      Object.keys(cohort.coursesIndex).map(course => {
-        ar.push(cohort.coursesIndex[course].title);
-      })
-    }
-    return ar;
   })
-  console.log(ar)
 
 }
-
 function filterSelect() {
   getCohorts((e) => {
     const dataCohorts = JSON.parse(e.target.responseText);
@@ -96,7 +101,7 @@ function filterSelect() {
       }
 
       program.addEventListener('change', function (e) {
-        // generacion.innerHTML = '';
+      // generacion.innerHTML = '';
         let valueProgram = program.value;
         let endFilter = s(valueProgram);
         for (i in endFilter) {
@@ -106,9 +111,9 @@ function filterSelect() {
           generacion.appendChild(option);
         }
       });
-      generacion.addEventListener('change', function (e){
+      generacion.addEventListener('change', function (e) {
         if (generacion.value === 'lim-2018-03-pre-core-pw') {
-        
+          tblBody.innerHTML = '';
           getUsers();
         } else {
           tblBody.innerHTML = 'no hay datos para mostrar';
