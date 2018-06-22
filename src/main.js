@@ -37,6 +37,46 @@ function getCohorts(callback) {
   xhrCohorts.onerror = handleError;
   xhrCohorts.send();
 }
+
+function filterSelect() {
+  getCohorts((e) => {
+    const dataCohorts = JSON.parse(e.target.responseText);
+
+    const filterItems = query => {
+      return dataCohorts.filter(sede => {
+        return sede.id.toLowerCase().indexOf(query.toLowerCase()) > -1
+      });
+    }
+
+    sedeSelect.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      let index = e.target.id;
+      const dataFilter = filterItems(index);
+
+      let s = query => {
+        return dataFilter.filter(programa => {
+          return programa.id.toLowerCase().indexOf(query.toLowerCase()) > -1
+        });
+      }
+
+      program.addEventListener('change', function (e) {
+        e.preventDefault();
+
+        let valueProgram = e.target.value;
+        let endFilter = s(valueProgram);
+
+        for (i in endFilter) {
+          let option = document.createElement('option');
+          option.setAttribute('value', endFilter[i].id)
+          option.innerText += endFilter[i].id;
+          generacion.appendChild(option);
+        }
+      });
+    });
+  });
+}
+
 function addUser(users, progress) {
   const datos = computeUsersStats(users, progress);
   users.length = 10;
@@ -82,43 +122,5 @@ function addCohorts() {
   });
 }
 
-function filterSelect() {
-  getCohorts((e) => {
-    const dataCohorts = JSON.parse(e.target.responseText);
-
-    const filterItems = query => {
-      return dataCohorts.filter(sede => {
-        return sede.id.toLowerCase().indexOf(query.toLowerCase()) > -1
-      });
-    }
-
-    sedeSelect.addEventListener('click', function (e) {
-      e.preventDefault();
-
-      let index = e.target.id;
-      const dataFilter = filterItems(index);
-
-      let s = query => {
-        return dataFilter.filter(programa => {
-          return programa.id.toLowerCase().indexOf(query.toLowerCase()) > -1
-        });
-      }
-
-      program.addEventListener('change', function (e) {
-        e.preventDefault();
-
-        let valueProgram = e.target.value;
-        let endFilter = s(valueProgram);
-
-        for (i in endFilter) {
-          let option = document.createElement('option');
-          option.setAttribute('value', endFilter[i].id)
-          option.innerText += endFilter[i].id;
-          generacion.appendChild(option);
-        }
-      });
-    });
-  });
-}
-
 filterSelect()
+getCohorts()
