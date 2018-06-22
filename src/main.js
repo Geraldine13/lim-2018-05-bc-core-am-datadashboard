@@ -53,15 +53,23 @@ function addUser(users, progress) {
       let celda = document.createElement('td');
       let celda1 = document.createElement('td');
       let celda2 = document.createElement('td');
+      let celda3 = document.createElement('td');
+      let celda4 = document.createElement('td');
       let textoCelda = document.createTextNode(datos[i].stats.exercises.percent + '%');
       let t = document.createTextNode(users[i].name);
       const tCe = document.createTextNode(datos[i].stats.percent + '%')
+      const tCe2 = document.createTextNode(datos[i].stats.reads.percent + '%')
+      const tCe3 = document.createTextNode(datos[i].stats.quizzes.percent + '%')
       celda.appendChild(textoCelda);
       celda1.appendChild(t);
       celda2.appendChild(tCe);
+      celda3.appendChild(tCe2);
+      celda4.appendChild(tCe3);
       tr.appendChild(celda1);
       tr.appendChild(celda2);
       tr.appendChild(celda);
+      tr.appendChild(celda3);
+      tr.appendChild(celda4);
       tblBody.appendChild(tr);
     }
 
