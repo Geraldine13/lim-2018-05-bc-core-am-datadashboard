@@ -162,6 +162,13 @@ window.computeUsersStats = (users, progress, courses) => {
       });
       return scoreSum.reduce((a, b) => a + b,initial);
     }
+    const scoreAvgQuizzes = () => {
+      if(completedQuizzes() === 0){
+        return 0;
+      }else{
+        return Math.round(scoreSumQuizzes() / completedQuizzes());
+      }
+    }
     const stats = {
       stats: {
         percent: percentProgress(),
@@ -180,7 +187,7 @@ window.computeUsersStats = (users, progress, courses) => {
           completed: completedQuizzes(),
           percent: percentQuizzes(),
           scoreSum: scoreSumQuizzes(),
-          scoreAvg: 29,
+          scoreAvg: scoreAvgQuizzes(),
         }
       }
     };
