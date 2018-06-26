@@ -81,21 +81,11 @@
         <li>
           <a href="">Sede</a>
           <ul>
-            <li id="lima" value="lim">
-              <a href=""> Lima</a>
-            </li>
-            <li>
-              <a href="">México</a>
-            </li>
-            <li>
-              <a href="">Guadalajara</a>
-            </li>
-            <li>
-              <a href="">Santiago de Chile</a>
-            </li>
-            <li>
-              <a href="">Sao Paulo</a>
-            </li>
+            <li id="lima" value="lim"><a href=""> Lima</a></li>
+            <li><a href="">México</a></li>
+            <li><a href="">Guadalajara</a></li>
+            <li><a href="">Santiago de Chile</a></li>
+            <li><a href="">Sao Paulo</a></li>
           </ul>
         </li>
       </ul>
@@ -111,6 +101,18 @@
       </select>
       Buscar
       <input type="text" name="" id="">
+      <select id="orderBy">
+        <option value="name">Nombre</option>
+        <option value="percent">Progreso</option>
+        <option value="exercicios">Ejercicios</option>
+        <option value="quizzes">Quizzes</option>
+        <option value="reads">Lecturas</option>
+      </select>
+      <select id="orderDirection">
+        <option value="asc">Ascendente</option>
+        <option value="desc">Descendente</option>
+      </select>
+      <button id="ordenar">ordenar</button>
     </nav>
     <section id="showing">
       <div style="overflow-x:auto;">

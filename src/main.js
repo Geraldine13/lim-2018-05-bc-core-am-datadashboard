@@ -1,8 +1,10 @@
 const li = document.getElementById('lima');
 const generacion = document.getElementById('generacion');
 const tblBody = document.getElementById('container-user');
-let init = 0;
-let final = 15;
+
+const selectOrderDirection = document.getElementById('orderDirection');
+const selectOrderBy = document.getElementById('orderBy');
+const ordenar = document.getElementById('ordenar')
 function getUsers() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
@@ -47,6 +49,14 @@ function addUser(users, progress) {
    
    //console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
+ordenar.addEventListener('click', function(){
+  const orderDirection = selectOrderDirection.value;
+  console.log(orderDirection)
+  const orderBy = selectOrderBy.value;
+  console.log(orderBy)
+  sortUsers(datos,orderBy,orderDirection)
+
+})
     users.length = 10;
     for (let i = 0; i < users.length; i++) {
       let tr = document.createElement('tr');
@@ -72,10 +82,11 @@ function addUser(users, progress) {
       tr.appendChild(celda4);
       tblBody.appendChild(tr);
     }
-
+    
   })
 
 }
+
 function addCohorts() {
   const dataCohorts = JSON.parse(event.target.responseText);
 

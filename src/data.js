@@ -11,6 +11,7 @@ window.computeUsersStats = (users, progress, courses) => {
         }
 
       });
+
       if (percent[0] === undefined) {
         return percent[0] = 0;
       } else {
@@ -152,7 +153,7 @@ window.computeUsersStats = (users, progress, courses) => {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].type === 'quiz') {
-                if(progress[user.id][course].units[leccion].parts[lectura].score !== undefined){
+                if (progress[user.id][course].units[leccion].parts[lectura].score !== undefined) {
                   scoreSum.push(progress[user.id][course].units[leccion].parts[lectura].score)
                 }
               }
@@ -160,16 +161,17 @@ window.computeUsersStats = (users, progress, courses) => {
           })
         }
       });
-      return scoreSum.reduce((a, b) => a + b,initial);
+      return scoreSum.reduce((a, b) => a + b, initial);
     }
     const scoreAvgQuizzes = () => {
-      if(completedQuizzes() === 0){
+      if (completedQuizzes() === 0) {
         return 0;
-      }else{
+      } else {
         return Math.round(scoreSumQuizzes() / completedQuizzes());
       }
     }
     const stats = {
+      name: user.name,
       stats: {
         percent: percentProgress(),
         exercises: {
@@ -193,6 +195,44 @@ window.computeUsersStats = (users, progress, courses) => {
     };
     return stats;
   });
-  console.log(usersWithStats)
+  //console.log(usersWithStats)
   return usersWithStats;
+}
+window.sortUsers = (users, orderBy, orderDirection) => {
+  if (orderBy === 'name' & orderDirection === 'asc') {
+    const orderByName = users.sort(function (a, b) {
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return 1;
+      }
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log(orderByName);
+  }else if (orderBy === 'name' & orderDirection === 'desc') {
+    const orderByName = users.sort(function (a, b) {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return 1;
+      }
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
+    console.log(orderByName);
+  }
+/* 
+  const orderBy = users.sort(function (a, b) {
+    if (a.stats.percent > b.stats.percent) {
+      return 1;
+    }
+    if (a.stats.percent < b.stats.percent) {
+      return -1;
+    }
+    // a must be equal to b
+    return 0;
+  }); */
+
+  //console.log(orderBy);
 }
