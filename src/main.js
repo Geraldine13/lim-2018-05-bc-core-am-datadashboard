@@ -47,7 +47,7 @@ function addUser(users, progress) {
    
    //console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
-    // users.length = 10;
+    users.length = 10;
     for (let i = 0; i < users.length; i++) {
       let tr = document.createElement('tr');
       let celda = document.createElement('td');

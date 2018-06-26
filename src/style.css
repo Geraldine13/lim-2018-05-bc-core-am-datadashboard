@@ -10,11 +10,13 @@ body {
     background-color: white;
     background-attachment: fixed;
     margin: 0;
-    padding: 2em 2em;
+    padding: 0.5em 0.6em;
     border: 0;
     text-align: center;
  }
- 
+ img{
+     height: 80px;
+ }
  #verticalBar {
     background-color: #ffc107;
     font-family: 'Bitter' serif;
@@ -22,10 +24,9 @@ body {
     font-size: 1em;
     box-sizing: border-box;
     width: 250px;
-    height: 655px;
+    height: 528px;
     padding: 0em 2em 0em 2em;
     margin: 0;
-    display: inline;
     float: left;
  }
  
@@ -33,19 +34,16 @@ body {
     background-color:white;
     font-family: 'Open Sans', sans-serif;
     width: calc(100% - 250px);
-    height: 655px;
+    height: 528px;
     margin: 0;
-    padding: 0em 0em 0em 2em;
+    padding: 0em 0em 0em 1em;
     box-sizing: border-box;
-    display: inline;
     float: right;
     vertical-align: top;
  }
- 
-main {
-    overflow: auto;
-}
-
+ main{
+     overflow: auto;
+ }
 hr {
     margin: 0;
     padding: 0;
@@ -74,11 +72,9 @@ hr {
  }
 
  .table{
-     border: 1px solid #000;
      border-collapse: collapse;
      min-width: 500px;
      max-height: 300px;
-     overflow-x:auto;
  }
  .table td,th{
      border: 1px solid #000;
@@ -91,8 +87,12 @@ hr {
      background: #888;
      color: black;
  }
-
-
+#generacion {
+    width: 160px;
+}
+option{
+    width: 100px;
+}
 
 
 

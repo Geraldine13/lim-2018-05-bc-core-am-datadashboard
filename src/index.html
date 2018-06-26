@@ -72,7 +72,7 @@
 <body>
   <header>
     <div id="logo">
-      <img src="img/logo.png" alt="Logo de Laboratoria" height="100px">
+      <img src="img/logo.png" alt="Logo de Laboratoria">
     </div>
   </header>
   <main class="container">
@@ -99,23 +99,21 @@
           </ul>
         </li>
       </ul>
+      <select name="programa">
+        <option value="1">--Selecciona un programa--</option>
+        <option value="seleccion">Selección</option>
+        <option value="bootcamp">Bootcamp</option>
+        <option value="educontinua">Educación Continua</option>
+        <option value="corp-training">Corporate Training</option>
+      </select>
+      <select id="generacion">
+        <option value="1">--Selecciona una generacion--</option>
+      </select>
+      Buscar
+      <input type="text" name="" id="">
     </nav>
     <section id="showing">
-      <form>
-        <select name="programa">
-          <option value="1">--Selecciona un programa--</option>
-          <option value="seleccion">Selección</option>
-          <option value="bootcamp">Bootcamp</option>
-          <option value="educontinua">Educación Continua</option>
-          <option value="corp-training">Corporate Training</option>
-        </select>
-        <select id="generacion">
-          <option value="1">--Selecciona una generacion--</option>
-        </select>
-        Buscar
-        <input type="text" name="" id="">
-      </form>
-      <div>
+      <div style="overflow-x:auto;">
         <table class="table">
           <thead id="thead" class="none">
             <tr>
