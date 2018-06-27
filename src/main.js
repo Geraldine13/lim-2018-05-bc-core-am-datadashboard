@@ -8,7 +8,7 @@ const selectOrderBy = document.getElementById('orderBy');
 const ordenar = document.getElementById('ordenar')
 
 let options = {
-  cohort:{},
+  cohort:'',
   cohortData:{
     users: [],
     progress:{}
@@ -18,17 +18,38 @@ let options = {
   search: '',
 
 }
-function pasarDatos(users,progress,courses) {
-  options.cohort = courses;
+function pasarDatos(users,progress,cohortSelect) {
+  options.cohort = cohortSelect[0];
   options.cohortData.users = users;
   options.cohortData.progress = progress;
-  options.orderBy = 'name';
-  options.orderDirection = 'asc';
-  options.search = '';
+  options.orderBy = orderBy.value;
+  options.orderDirection = orderDirection.value;
+  options.search = stringSearch.value;
   console.log(options);
   
-  processCohortData(options);
-  
+ const data = processCohortData(options);
+ console.log(data);
+ 
+  dataTable(data)
+  ordenar.addEventListener('click', function () {
+    const orderDirection = selectOrderDirection.value;
+    console.log(orderDirection);
+    const orderBy = selectOrderBy.value;
+    console.log(orderBy);
+   const userOrder = sortUsers(data, orderBy, orderDirection);
+   console.log(userOrder);
+   
+   tblBody.innerHTML = '';
+  dataTable(userOrder);
+
+  })
+  stringSearch.addEventListener('keyup', function () {
+    const search = stringSearch.value;
+    console.log(search);
+    const userfilter = filterUsers(data, search);
+    tblBody.innerHTML = '';
+    dataTable(userfilter);
+  })
 }
 function getUsers() {
   const xhr = new XMLHttpRequest();
@@ -46,7 +67,7 @@ function getUsers() {
           users.push(user);
         }
       })      
-     addUser(users, progress)
+     addUser(users, progress)     
     }
     xhrCohorts.onerror = handleError;
     xhrCohorts.send();
@@ -69,34 +90,27 @@ function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
     const courses = [];
+    const cohortSelect = [];
     for (cohort of dataCohorts) {
-      if (cohort.hasOwnProperty('coursesIndex')) {
+      //if (cohort.hasOwnProperty('coursesIndex')) {
         if (cohort.id === generacion.value) {
-          courses.push(Object.keys(cohort.coursesIndex).toString())
+         // courses.push(Object.keys(cohort.coursesIndex).toString())
           //console.log(generacion.value)
+          cohortSelect.push(cohort);
         }
-      }
+      //}
     }
-
+    console.log(cohortSelect);
+    
     //console.log((courses))
-    const datos = computeUsersStats(users, progress, courses);
-    pasarDatos(datos,progress,courses)
-    dataTable(datos)
-    ordenar.addEventListener('click', function () {
-      const orderDirection = selectOrderDirection.value;
-      console.log(orderDirection);
-      const orderBy = selectOrderBy.value;
-      console.log(orderBy);
-     const userOrder = sortUsers(datos, orderBy, orderDirection);
-    dataTable(userOrder);
-
-    })
-    stringSearch.addEventListener('keyup', function () {
-      const search = stringSearch.value;
-      console.log(search);
-      const userfilter = filterUsers(datos, search);
-      dataTable(userfilter);
-    })
+   // const datos = computeUsersStats(users, progress, courses);
+ 
+   
+   pasarDatos(users,progress,cohortSelect);
+  //  console.log(datos);
+   
+  //   dataTable(datos)
+   
     
   })
 

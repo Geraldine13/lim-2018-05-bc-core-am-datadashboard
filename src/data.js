@@ -1,20 +1,15 @@
 window.computeUsersStats = (users, progress, courses) => {
-  //console.log(courses)
+
   const usersWithStats = users.map(user => {
     const percentProgress = () => {
       const percent = [];
       courses.map(course => {
-        // console.log(progress[user.id])
-        // console.log(Object.keys(progress[user.id]));
-        if (Object.keys(progress[user.id]).length > 0 && !Array.isArray(progress[user.id])) {
-          console.log(progress[user.id]);
+        if (progress[user.id] && Object.keys(progress[user.id]).length > 0 && !Array.isArray(progress[user.id])) {
           if (progress[user.id][course].hasOwnProperty('percent')) {
             percent.push(progress[user.id][course].percent);
           }
-
         }
       });
-
       if (percent[0] === undefined) {
         return percent[0] = 0;
       } else {
@@ -24,7 +19,7 @@ window.computeUsersStats = (users, progress, courses) => {
     const exercisesTotal = () => {
       const total = [];
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].hasOwnProperty('exercises')) {
@@ -44,7 +39,7 @@ window.computeUsersStats = (users, progress, courses) => {
       const completed = [];
       const initial = 0;
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].hasOwnProperty('exercises')) {
@@ -72,7 +67,7 @@ window.computeUsersStats = (users, progress, courses) => {
     const totalReads = () => {
       const total = [];
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].type === 'read') {
@@ -88,7 +83,7 @@ window.computeUsersStats = (users, progress, courses) => {
       const completed = [];
       const initial = 0;
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].type === 'read') {
@@ -111,7 +106,7 @@ window.computeUsersStats = (users, progress, courses) => {
     const totalQuizzes = () => {
       const total = [];
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].type === 'quiz') {
@@ -127,7 +122,7 @@ window.computeUsersStats = (users, progress, courses) => {
       const completed = [];
       const initial = 0;
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].type === 'quiz') {
@@ -151,7 +146,7 @@ window.computeUsersStats = (users, progress, courses) => {
       const scoreSum = [];
       const initial = 0;
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        if (progress[user.id] && progress[user.id].hasOwnProperty(course)) {
           Object.keys(progress[user.id][course].units).map(leccion => {
             Object.keys(progress[user.id][course].units[leccion].parts).map(lectura => {
               if (progress[user.id][course].units[leccion].parts[lectura].type === 'quiz') {
@@ -195,9 +190,10 @@ window.computeUsersStats = (users, progress, courses) => {
         }
       }
     };
+    // console.log(stats)
     return stats;
   });
-  console.log(usersWithStats)
+  //console.log(usersWithStats)
   return usersWithStats;
 }
 window.sortUsers = (users, orderBy, orderDirection) => {
@@ -210,36 +206,35 @@ window.sortUsers = (users, orderBy, orderDirection) => {
       if (x > y) { return 1; }
       return 0;
     });
-    console.log(orderByName);
     return orderByName;
   } else if (orderBy === 'name' & orderDirection === 'desc') {
     const nuevo = users.reverse();
-    console.log(nuevo);
+    //console.log(nuevo);
     return nuevo;
   } else if (orderBy === 'percent' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.percent - b.stats.percent });
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'percent' & orderDirection === 'desc') {
     const order = users.reverse();
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'exercises' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.exercises.percent - b.stats.exercises.percent });
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'exercises' & orderDirection === 'desc') {
     const order = users.reverse();
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'quizzes' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.quizzes.percent - b.stats.quizzes.percent });
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'quizzes' & orderDirection === 'desc') {
     const order = users.reverse();
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'reads' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.reads.percent - b.stats.reads.percent });
-    console.log(order);
+    //console.log(order);
   } else if (orderBy === 'reads' & orderDirection === 'desc') {
     const order = users.reverse();
-    console.log(order);
+    //console.log(order);
   }
 
 
@@ -248,17 +243,19 @@ window.sortUsers = (users, orderBy, orderDirection) => {
 window.filterUsers = (users, search) => {
   const userFilter = users.filter(user => {
     return user.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
-  })
-  console.log(userFilter);
+  });
+  //console.log(userFilter);
   return userFilter;
 }
 window.processCohortData = (options) => {
-  let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, options.cohort);
+  const courses =Object.keys(options.cohort.coursesIndex)
+  //console.log()
+  let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, courses);
   estudiantes = sortUsers(estudiantes, options.orderBy, options.orderDirection);
   if (options.search !== '') {
     estudiantes = filterUsers(users, search);
   }
-  console.log(estudiantes);
+ //console.log(estudiantes);
 
   return estudiantes;
 
