@@ -30,7 +30,6 @@ window.computeUsersStats = (users, progress, courses) => {
             })
           })
         }
-
       });
       if (total[0] === undefined) {
         return total[0] = 0;
@@ -199,40 +198,69 @@ window.computeUsersStats = (users, progress, courses) => {
   return usersWithStats;
 }
 window.sortUsers = (users, orderBy, orderDirection) => {
+
   if (orderBy === 'name' & orderDirection === 'asc') {
     const orderByName = users.sort(function (a, b) {
-      if (a.name.toLowerCase() > b.name.toLowerCase()) {
-        return 1;
-      }
-      if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return -1;
-      }
+      var x = a.name.toLowerCase();
+      var y = b.name.toLowerCase();
+      if (x < y) { return -1; }
+      if (x > y) { return 1; }
       return 0;
     });
     console.log(orderByName);
-  }else if (orderBy === 'name' & orderDirection === 'desc') {
-    const orderByName = users.sort(function (a, b) {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return 1;
-      }
-      if (a.name.toLowerCase() > b.name.toLowerCase()) {
-        return -1;
-      }
-      return 0;
-    });
-    console.log(orderByName);
+  } else if (orderBy === 'name' & orderDirection === 'desc') {
+    const nuevo = users.reverse();
+    console.log(nuevo);
+  } else if (orderBy === 'percent' & orderDirection === 'asc') {
+    const order = users.sort(function (a, b) { return a.stats.percent - b.stats.percent });
+    console.log(order);
+  } else if (orderBy === 'percent' & orderDirection === 'desc') {
+    const order = users.reverse();
+    console.log(order);
+  } else if (orderBy === 'exercises' & orderDirection === 'asc') {
+    const order = users.sort(function (a, b) { return a.stats.exercises.percent - b.stats.exercises.percent });
+    console.log(order);
+  } else if (orderBy === 'exercises' & orderDirection === 'desc') {
+    const order = users.reverse();
+    console.log(order);
+  } else if (orderBy === 'quizzes' & orderDirection === 'asc') {
+    const order = users.sort(function (a, b) { return a.stats.quizzes.percent - b.stats.quizzes.percent });
+    console.log(order);
+  } else if (orderBy === 'quizzes' & orderDirection === 'desc') {
+    const order = users.reverse();
+    console.log(order);
+  } else if (orderBy === 'reads' & orderDirection === 'asc') {
+    const order = users.sort(function (a, b) { return a.stats.reads.percent - b.stats.reads.percent });
+    console.log(order);
+  } else if (orderBy === 'reads' & orderDirection === 'desc') {
+    const order = users.reverse();
+    console.log(order);
   }
-/* 
-  const orderBy = users.sort(function (a, b) {
-    if (a.stats.percent > b.stats.percent) {
-      return 1;
-    }
-    if (a.stats.percent < b.stats.percent) {
-      return -1;
-    }
-    // a must be equal to b
-    return 0;
-  }); */
 
-  //console.log(orderBy);
+
+}
+
+window.filterUsers = (users, search) => {
+  const userFilter = users.filter(user => {
+    return user.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
+  })
+  //console.log(userFilter);
+  return userFilter;
+}
+window.processCohortData = (options) => {
+  computeUsersStats(users, progress, courses);
+  sortUsers(users, orderBy, orderDirection);
+  filterUsers(users, search);
+
+  options = {
+    cohort:{},
+    cohortData:{
+      users: [],
+      progress:{}
+    },
+    orderBy: '',
+    orderDirection: '',
+    search: '',
+
+  }
 }

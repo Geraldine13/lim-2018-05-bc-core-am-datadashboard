@@ -1,6 +1,8 @@
 const li = document.getElementById('lima');
 const generacion = document.getElementById('generacion');
 const tblBody = document.getElementById('container-user');
+const stringSearch = document.getElementById('search');
+const searchBtn = document.getElementById('btnsearch');
 
 const selectOrderDirection = document.getElementById('orderDirection');
 const selectOrderBy = document.getElementById('orderBy');
@@ -9,13 +11,19 @@ function getUsers() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
   xhr.onload = function () {
-    const users = JSON.parse(event.currentTarget.responseText);
+    const usersData = JSON.parse(event.currentTarget.responseText);
     const xhrCohorts = new XMLHttpRequest();
     xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
     xhrCohorts.onload = function () {
       const progress = JSON.parse(event.currentTarget.responseText);
       //computeUsersStats(users, progress);
-      addUser(users, progress)
+      const users = [];
+      usersData.map(user => {
+        if (generacion.value === user.signupCohort) {
+          users.push(user);
+        }
+      })      
+     addUser(users, progress)
     }
     xhrCohorts.onerror = handleError;
     xhrCohorts.send();
@@ -38,25 +46,31 @@ function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
     const courses = [];
-   for (cohort of dataCohorts){
+    for (cohort of dataCohorts) {
       if (cohort.hasOwnProperty('coursesIndex')) {
         if (cohort.id === generacion.value) {
-           courses.push(Object.keys(cohort.coursesIndex).toString())
+          courses.push(Object.keys(cohort.coursesIndex).toString())
           //console.log(generacion.value)
         }
       }
-   }
-   
-   //console.log((courses))
-    const datos = computeUsersStats(users, progress, courses);
-ordenar.addEventListener('click', function(){
-  const orderDirection = selectOrderDirection.value;
-  console.log(orderDirection)
-  const orderBy = selectOrderBy.value;
-  console.log(orderBy)
-  sortUsers(datos,orderBy,orderDirection)
+    }
 
-})
+    //console.log((courses))
+    const datos = computeUsersStats(users, progress, courses);
+    ordenar.addEventListener('click', function () {
+      const orderDirection = selectOrderDirection.value;
+      console.log(orderDirection);
+      const orderBy = selectOrderBy.value;
+      console.log(orderBy);
+      sortUsers(datos, orderBy, orderDirection);
+
+    })
+    searchBtn.addEventListener('click', function () {
+      const search = stringSearch.value;
+      console.log(search);
+      filterUsers(datos, search);
+    })
+
     users.length = 10;
     for (let i = 0; i < users.length; i++) {
       let tr = document.createElement('tr');
@@ -82,7 +96,7 @@ ordenar.addEventListener('click', function(){
       tr.appendChild(celda4);
       tblBody.appendChild(tr);
     }
-    
+
   })
 
 }
