@@ -4,12 +4,15 @@ window.computeUsersStats = (users, progress, courses) => {
     const percentProgress = () => {
       const percent = [];
       courses.map(course => {
-        if (progress[user.id].hasOwnProperty(course)) {
+        // console.log(progress[user.id])
+        // console.log(Object.keys(progress[user.id]));
+        if (Object.keys(progress[user.id]).length > 0 && !Array.isArray(progress[user.id])) {
+          console.log(progress[user.id]);
           if (progress[user.id][course].hasOwnProperty('percent')) {
             percent.push(progress[user.id][course].percent);
           }
-        }
 
+        }
       });
 
       if (percent[0] === undefined) {
@@ -194,7 +197,7 @@ window.computeUsersStats = (users, progress, courses) => {
     };
     return stats;
   });
-  //console.log(usersWithStats)
+  console.log(usersWithStats)
   return usersWithStats;
 }
 window.sortUsers = (users, orderBy, orderDirection) => {
@@ -208,9 +211,11 @@ window.sortUsers = (users, orderBy, orderDirection) => {
       return 0;
     });
     console.log(orderByName);
+    return orderByName;
   } else if (orderBy === 'name' & orderDirection === 'desc') {
     const nuevo = users.reverse();
     console.log(nuevo);
+    return nuevo;
   } else if (orderBy === 'percent' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.percent - b.stats.percent });
     console.log(order);
@@ -244,23 +249,17 @@ window.filterUsers = (users, search) => {
   const userFilter = users.filter(user => {
     return user.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
   })
-  //console.log(userFilter);
+  console.log(userFilter);
   return userFilter;
 }
 window.processCohortData = (options) => {
-  computeUsersStats(users, progress, courses);
-  sortUsers(users, orderBy, orderDirection);
-  filterUsers(users, search);
-
-  options = {
-    cohort:{},
-    cohortData:{
-      users: [],
-      progress:{}
-    },
-    orderBy: '',
-    orderDirection: '',
-    search: '',
-
+  let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, options.cohort);
+  estudiantes = sortUsers(estudiantes, options.orderBy, options.orderDirection);
+  if (options.search !== '') {
+    estudiantes = filterUsers(users, search);
   }
+  console.log(estudiantes);
+
+  return estudiantes;
+
 }

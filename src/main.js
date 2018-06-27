@@ -3,10 +3,33 @@ const generacion = document.getElementById('generacion');
 const tblBody = document.getElementById('container-user');
 const stringSearch = document.getElementById('search');
 const searchBtn = document.getElementById('btnsearch');
-
 const selectOrderDirection = document.getElementById('orderDirection');
 const selectOrderBy = document.getElementById('orderBy');
 const ordenar = document.getElementById('ordenar')
+
+let options = {
+  cohort:{},
+  cohortData:{
+    users: [],
+    progress:{}
+  },
+  orderBy: '',
+  orderDirection: '',
+  search: '',
+
+}
+function pasarDatos(users,progress,courses) {
+  options.cohort = courses;
+  options.cohortData.users = users;
+  options.cohortData.progress = progress;
+  options.orderBy = 'name';
+  options.orderDirection = 'asc';
+  options.search = '';
+  console.log(options);
+  
+  processCohortData(options);
+  
+}
 function getUsers() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
@@ -31,7 +54,7 @@ function getUsers() {
   xhr.onerror = handleError;
   xhr.send();
 }
-function handleError() {
+ function handleError() {
   console.log('se ha presentado un error');
 }
 //obteniendo data cohorts
@@ -57,48 +80,54 @@ function addUser(users, progress) {
 
     //console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
+    pasarDatos(datos,progress,courses)
+    dataTable(datos)
     ordenar.addEventListener('click', function () {
       const orderDirection = selectOrderDirection.value;
       console.log(orderDirection);
       const orderBy = selectOrderBy.value;
       console.log(orderBy);
-      sortUsers(datos, orderBy, orderDirection);
+     const userOrder = sortUsers(datos, orderBy, orderDirection);
+    dataTable(userOrder);
 
     })
-    searchBtn.addEventListener('click', function () {
+    stringSearch.addEventListener('keyup', function () {
       const search = stringSearch.value;
       console.log(search);
-      filterUsers(datos, search);
+      const userfilter = filterUsers(datos, search);
+      dataTable(userfilter);
     })
-
-    users.length = 10;
-    for (let i = 0; i < users.length; i++) {
-      let tr = document.createElement('tr');
-      let celda = document.createElement('td');
-      let celda1 = document.createElement('td');
-      let celda2 = document.createElement('td');
-      let celda3 = document.createElement('td');
-      let celda4 = document.createElement('td');
-      let textoCelda = document.createTextNode(datos[i].stats.exercises.percent + '%');
-      let t = document.createTextNode(users[i].name);
-      const tCe = document.createTextNode(datos[i].stats.percent + '%')
-      const tCe2 = document.createTextNode(datos[i].stats.reads.percent + '%')
-      const tCe3 = document.createTextNode(datos[i].stats.quizzes.percent + '%')
-      celda.appendChild(textoCelda);
-      celda1.appendChild(t);
-      celda2.appendChild(tCe);
-      celda3.appendChild(tCe2);
-      celda4.appendChild(tCe3);
-      tr.appendChild(celda1);
-      tr.appendChild(celda2);
-      tr.appendChild(celda);
-      tr.appendChild(celda3);
-      tr.appendChild(celda4);
-      tblBody.appendChild(tr);
-    }
-
+    
   })
 
+}
+
+function dataTable(datos){
+ // datos.length = 10;
+    for (let i = 0; i < datos.length; i++) {
+      let tr = document.createElement('tr');
+      let celdaName = document.createElement('td');
+      let celdaProgressPercent = document.createElement('td');
+      let celdaExercisesPercent = document.createElement('td');
+      let celdaReadsPercent = document.createElement('td');
+      let celdaQuizzesPercent = document.createElement('td');
+      let textName = document.createTextNode(datos[i].name);
+      const textProgress = document.createTextNode(datos[i].stats.percent + '%')
+      let textExercises = document.createTextNode(datos[i].stats.exercises.percent + '%');
+      const textReadsPercent = document.createTextNode(datos[i].stats.reads.percent + '%')
+      const textQuizzesPercent = document.createTextNode(datos[i].stats.quizzes.percent + '%')
+      celdaName.appendChild(textName);
+      celdaProgressPercent.appendChild(textProgress);
+      celdaExercisesPercent.appendChild(textExercises);
+      celdaReadsPercent.appendChild(textReadsPercent);
+      celdaQuizzesPercent.appendChild(textQuizzesPercent);
+      tr.appendChild(celdaName);
+      tr.appendChild(celdaProgressPercent);
+      tr.appendChild(celdaExercisesPercent);
+      tr.appendChild(celdaQuizzesPercent);
+      tr.appendChild(celdaReadsPercent);
+      tblBody.appendChild(tr);
+    }
 }
 
 function addCohorts() {
