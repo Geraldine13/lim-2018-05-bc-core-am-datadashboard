@@ -7,7 +7,7 @@ const selectOrderDirection = document.getElementById('orderDirection');
 const selectOrderBy = document.getElementById('orderBy');
 const ordenar = document.getElementById('ordenar')
 
-var currentDiv = document.getElementById("div1"); 
+var sectionContentStudents = document.getElementById("showing"); 
 
 let options = {
   cohort:'',
@@ -27,29 +27,21 @@ function pasarDatos(users,progress,cohortSelect) {
   options.orderBy = orderBy.value;
   options.orderDirection = orderDirection.value;
   options.search = stringSearch.value;
-  console.log(options);
-  
- const data = processCohortData(options);
- console.log(data);
- 
+ const data = processCohortData(options); 
   dataTable(data)
+
   ordenar.addEventListener('click', function () {
-    const orderDirection = selectOrderDirection.value;
-    console.log(orderDirection);
-    const orderBy = selectOrderBy.value;
-    console.log(orderBy);
-   const userOrder = sortUsers(data, orderBy, orderDirection);
-   console.log(userOrder);
-   
-   currentDiv.innerHTML = '';
+    options.orderBy = selectOrderBy.value;
+    options.orderDirection = selectOrderDirection.value;
+   const userOrder = processCohortData(options);
+    sectionContentStudents.innerHTML = '';
   dataTable(userOrder);
 
   })
   stringSearch.addEventListener('keyup', function () {
-    const search = stringSearch.value;
-    console.log(search);
-    const userfilter = filterUsers(data, search);
-    currentDiv.innerHTML = '';
+    options.search = stringSearch.value;
+    const userfilter = processCohortData(options);
+    sectionContentStudents.innerHTML = '';
     dataTable(userfilter);
   })
 }
@@ -90,21 +82,13 @@ function getCohorts(callback) {
 function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
-    const courses = [];
     const cohortSelect = [];
     for (cohort of dataCohorts) {
-      //if (cohort.hasOwnProperty('coursesIndex')) {
         if (cohort.id === generacion.value) {
-         // courses.push(Object.keys(cohort.coursesIndex).toString())
-          //console.log(generacion.value)
           cohortSelect.push(cohort);
         }
-      //}
     }
     console.log(cohortSelect);
-    
-    //console.log((courses))
-   // const datos = computeUsersStats(users, progress, courses);
    pasarDatos(users,progress,cohortSelect);   
   })
 
@@ -117,7 +101,7 @@ function dataTable(datos){
       var newContent = document.createTextNode(datos[i].name); 
       newDiv.appendChild(newContent); //añade texto al div creado. 
       // añade el elemento creado y su contenido al DOM 
-      currentDiv.appendChild(newDiv)
+      sectionContentStudents.appendChild(newDiv)
       // document.body.insertBefore(newDiv, currentDiv);
       /* let tr = document.createElement('tr');
       let celdaName = document.createElement('td');
@@ -156,7 +140,7 @@ function addCohorts() {
   generacion.addEventListener('change', function (e) {
     //console.log(generacion.value)
     if (generacion.value === 'lim-2018-03-pre-core-pw') {
-      tblBody.innerHTML = '';
+    
       getUsers();
     } else {
       tblBody.innerHTML = 'no hay datos para mostrar';

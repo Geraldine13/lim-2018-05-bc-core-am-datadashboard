@@ -1,4 +1,5 @@
 window.computeUsersStats = (users, progress, courses) => {
+console.log(courses);
 
   const usersWithStats = users.map(user => {
     const percentProgress = () => {
@@ -208,18 +209,23 @@ window.sortUsers = (users, orderBy, orderDirection) => {
     });
     return orderByName;
   } else if (orderBy === 'name' & orderDirection === 'desc') {
-    const nuevo = users.reverse();
-    //console.log(nuevo);
+    const nuevo = users.sort(function (a, b) {
+      var x = a.name.toLowerCase();
+      var y = b.name.toLowerCase();
+      if (x > y) { return -1; }
+      if (x < y) { return 1; }
+      return 0;
+    });
     return nuevo;
   } else if (orderBy === 'percent' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.percent - b.stats.percent });
-    //console.log(order);
+    return order;
   } else if (orderBy === 'percent' & orderDirection === 'desc') {
     const order = users.reverse();
-    //console.log(order);
+    return order;
   } else if (orderBy === 'exercises' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.exercises.percent - b.stats.exercises.percent });
-    //console.log(order);
+    return order;
   } else if (orderBy === 'exercises' & orderDirection === 'desc') {
     const order = users.reverse();
     //console.log(order);
@@ -249,14 +255,11 @@ window.filterUsers = (users, search) => {
 }
 window.processCohortData = (options) => {
   const courses =Object.keys(options.cohort.coursesIndex)
-  //console.log()
   let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, courses);
   estudiantes = sortUsers(estudiantes, options.orderBy, options.orderDirection);
   if (options.search !== '') {
-    estudiantes = filterUsers(users, search);
+    estudiantes = filterUsers(options.cohortData.users, options.search);
   }
- //console.log(estudiantes);
-
   return estudiantes;
 
 }
