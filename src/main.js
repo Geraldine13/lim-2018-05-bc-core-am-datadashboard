@@ -7,6 +7,8 @@ const selectOrderDirection = document.getElementById('orderDirection');
 const selectOrderBy = document.getElementById('orderBy');
 const ordenar = document.getElementById('ordenar')
 
+var currentDiv = document.getElementById("div1"); 
+
 let options = {
   cohort:'',
   cohortData:{
@@ -39,7 +41,7 @@ function pasarDatos(users,progress,cohortSelect) {
    const userOrder = sortUsers(data, orderBy, orderDirection);
    console.log(userOrder);
    
-   tblBody.innerHTML = '';
+   currentDiv.innerHTML = '';
   dataTable(userOrder);
 
   })
@@ -47,7 +49,7 @@ function pasarDatos(users,progress,cohortSelect) {
     const search = stringSearch.value;
     console.log(search);
     const userfilter = filterUsers(data, search);
-    tblBody.innerHTML = '';
+    currentDiv.innerHTML = '';
     dataTable(userfilter);
   })
 }
@@ -60,7 +62,6 @@ function getUsers() {
     xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
     xhrCohorts.onload = function () {
       const progress = JSON.parse(event.currentTarget.responseText);
-      //computeUsersStats(users, progress);
       const users = [];
       usersData.map(user => {
         if (generacion.value === user.signupCohort) {
@@ -104,14 +105,7 @@ function addUser(users, progress) {
     
     //console.log((courses))
    // const datos = computeUsersStats(users, progress, courses);
- 
-   
-   pasarDatos(users,progress,cohortSelect);
-  //  console.log(datos);
-   
-  //   dataTable(datos)
-   
-    
+   pasarDatos(users,progress,cohortSelect);   
   })
 
 }
@@ -119,7 +113,13 @@ function addUser(users, progress) {
 function dataTable(datos){
  // datos.length = 10;
     for (let i = 0; i < datos.length; i++) {
-      let tr = document.createElement('tr');
+      var newDiv = document.createElement("div"); 
+      var newContent = document.createTextNode(datos[i].name); 
+      newDiv.appendChild(newContent); //añade texto al div creado. 
+      // añade el elemento creado y su contenido al DOM 
+      currentDiv.appendChild(newDiv)
+      // document.body.insertBefore(newDiv, currentDiv);
+      /* let tr = document.createElement('tr');
       let celdaName = document.createElement('td');
       let celdaProgressPercent = document.createElement('td');
       let celdaExercisesPercent = document.createElement('td');
@@ -140,7 +140,7 @@ function dataTable(datos){
       tr.appendChild(celdaExercisesPercent);
       tr.appendChild(celdaQuizzesPercent);
       tr.appendChild(celdaReadsPercent);
-      tblBody.appendChild(tr);
+      tblBody.appendChild(tr); */
     }
 }
 
