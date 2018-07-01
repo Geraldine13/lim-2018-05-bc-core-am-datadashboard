@@ -1,5 +1,6 @@
 body {
     font-family: 'Bitter', serif;
+    font-size: 16pt;
     color: #333333;
     margin: 0;
     padding: 0;
@@ -58,6 +59,29 @@ hr {
     padding: 0.5em 0.5em;
  }
  
+ select {
+    border: 1px solid #ffc107;
+    border-radius: 7px;
+    height: 50px;
+    width: 180px;
+    overflow: hidden;
+    background: #ffc107;
+
+  }
+  
+div {
+    margin:2em 0em 0em 0em; 
+}  
+
+select select {
+    padding: 5px 8px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    appearance: none;
+  }
 
  @media (max-width:480px) {
      main {

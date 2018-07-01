@@ -153,6 +153,7 @@ window.computeUsersStats = (users, progress,courses) => {
       return scoreSum.reduce((a, b) => a + b, initial);
     }
     const stats = {
+      name : user.name,
       stats: {
         percent: percentProgress(),
         exercises: {
@@ -176,6 +177,14 @@ window.computeUsersStats = (users, progress,courses) => {
     };
     return stats;
   });
-  //console.log(usersWithStats)
   return usersWithStats;
+  console.log(usersWithStats)
 }
+
+window.filterUser = (users, search) => {
+  let filterStudent = users.filter((student) => { 
+  return student.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
+  });
+  console.log(filterStudent)
+  return filterStudent;
+  }

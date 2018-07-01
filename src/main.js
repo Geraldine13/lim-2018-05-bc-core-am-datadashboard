@@ -1,5 +1,6 @@
 let sedeSelect = document.getElementById('selectSede');
 let program = document.getElementById('program');
+let searchName = document.getElementById('sUsers');
 
 const generacion = document.getElementById('generacion');
 const tblBody = document.getElementById('container-user');
@@ -36,6 +37,7 @@ function getCohorts(callback) {
   xhrCohorts.onerror = handleError;
   xhrCohorts.send();
 }
+
 function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
@@ -51,6 +53,7 @@ function addUser(users, progress) {
    
    //console.log((courses))
     const datos = computeUsersStats(users, progress, courses);
+    console.log(datos);
     // users.length = 10;
     for (let i = 0; i < users.length; i++) {
       let tr = document.createElement('tr');
@@ -77,9 +80,22 @@ function addUser(users, progress) {
       tblBody.appendChild(tr);
     }
 
+    searchName.addEventListener('keyup',function(e) {
+      //e.preventDefault();
+      if (searchName !== '') {
+        let searchN = searchName.value; 
+        let searchStudents = filterUser(datos, searchN);
+        return searchStudents;
+        console.log(searchStudents)
+      }
+
+    })
+    
+     
   })
 
 }
+
 function filterSelect() {
   getCohorts((e) => {
     const dataCohorts = JSON.parse(e.target.responseText);
@@ -101,9 +117,13 @@ function filterSelect() {
       }
 
       program.addEventListener('change', function (e) {
-      // generacion.innerHTML = '';
+      
+        document.innerHTML = generacion.value = '0'; // fijar opción de selección
+        document.innerHTML = generacion.length = 1; // elimina la opción anterior seleccionada
+        
         let valueProgram = program.value;
         let endFilter = s(valueProgram);
+        console.log(endFilter);
         for (i in endFilter) {
           let option = document.createElement('option');
           option.setAttribute('value', endFilter[i].id)
@@ -116,7 +136,9 @@ function filterSelect() {
           tblBody.innerHTML = '';
           getUsers();
         } else {
-          tblBody.innerHTML = 'no hay datos para mostrar';
+          generacion.innerHTML= '';
+          tblBody.innerHTML = '';
+          tblBody.innerHTML = 'No hay datos para mostrar';
         }
       });
     });
@@ -124,3 +146,4 @@ function filterSelect() {
 }
 
 filterSelect()
+

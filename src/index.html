@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Data Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://scontent-scl1-1.xx.fbcdn.net/v/t1.15752-9/35142656_1705344299514252_5863557290291888128_n.png?_nc_cat=0&oh=2951acd9c2c492451ab4132eb974b4a7&oe=5BB35433"
   />
@@ -75,6 +76,52 @@
   </header>
   <main class="container">
     <nav id="verticalBar">
+
+      <!-- <div id="site">
+        <form>
+          <label><img src="img/marcador-de-posicion.png" alt="Icono de ubicación" height="20px"> Sede</label><br>
+          <select>
+            <option value="">------</option>
+            <option value="lim">Lima</option>
+            <option value="cdmx">México</option>
+            <option value="gdl">Guadalajara</option>
+            <option value="scl">Santiago de Chile</option>
+            <option value="spl">Sao Paulo</option>
+          </select>
+        </form>
+      </div>
+
+      <div id="program">
+        <form>
+          <label><img src="img/carpeta.png" alt="Imagen de carpeta" height="20px"> Programa</label><br>
+          <select>
+            <option value="">------</option>
+            <option value="pre">Selección</option>
+            <option value="bc">Bootcamp</option>
+            <option value="ec">Educación Continua</option>
+            <option value="corp-training">Corporate Training</option>
+          </select>
+        </form>
+      </div>
+
+      <div id="generation">
+          <form>
+            <label><img src="img/usuario.png" alt="Imagen de usuarios" height="20px"> Generación</label><br>
+            <select>
+              <option value="">------</option>
+            </select>
+          </form>
+      </div>
+
+      <div id="course">
+          <form>
+            <label><img src="img/agenda.png" alt="Imagen de Curso" height="20px"> Curso</label><br>
+            <select>
+              <option value="">------</option>
+            </select>
+          </form>
+      </div> -->
+
       <ul class="nav">
         <li>
           <a href="">Sede</a>
@@ -98,13 +145,13 @@
           <option value="corp-training">Corporate Training</option>
         </select>
         <select id="generacion">
-          <option value="1">--Selecciona una generacion--</option>
+          <option value="0">--Selecciona una generacion--</option>
         </select>
         <label>Buscar</label>
-        <input type="text" name="" id="">
+        <input type="search" name="" id="sUsers" placeholder="Ingrese el nombre de Alumna...">
       </form>
       <div>
-        <table class="table">
+        <table class="table" id="myTable">
           <thead>
             <tr>
               <th>Nombre</th>
