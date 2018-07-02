@@ -1,132 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8"/>
   <title>Data Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Bitter|Open+Sans" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" href="https://scontent-scl1-1.xx.fbcdn.net/v/t1.15752-9/35142656_1705344299514252_5863557290291888128_n.png?_nc_cat=0&oh=2951acd9c2c492451ab4132eb974b4a7&oe=5BB35433"
   />
-  <link rel="stylesheet" href="style.css" />
-  <style type="text/css">
-    * {
-      margin: 0px;
-      padding: 0px;
-    }
-
-    #header {
-      margin: auto;
-      width: 500px;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    ul,
-    ol {
-      list-style: none;
-    }
-
-    .nav {
-      width: 500px;
-      /*Le establecemos un ancho*/
-      margin: 0 auto;
-      /*Centramos automaticamente*/
-    }
-
-    .nav>li {
-      float: left;
-    }
-
-    .nav li a {
-      background-color: #000;
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 12px;
-      display: block;
-    }
-
-    .nav li a:hover {
-      background-color: #434343;
-    }
-
-    .nav li ul {
-      display: none;
-      position: absolute;
-      min-width: 140px;
-    }
-
-    .nav li:hover>ul {
-      display: block;
-    }
-
-    .nav li ul li {
-      position: relative;
-    }
-
-    .nav li ul li ul {
-      right: -140px;
-      top: 0px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap.css">
 </head>
 <body>
-  <header>
-    <div id="logo">
-      <img src="img/logo.png" alt="Logo de Laboratoria" height="100px">
-    </div>
+  <header class="encabezado">
+      <div id="logo">
+          <img src="img/logo.png" alt="Logo de Laboratoria">
+        </div>
   </header>
-  <main class="container">
-    <nav id="verticalBar">
-      <ul class="nav">
-        <li>
-          <a href="">Sede</a>
-          <ul id="selectSede">
-            <li><a id="lim" href="">Lima</a></li>
-            <li><a id="cdmx" href="">México</a></li>
-            <li><a id="gdl" href="">Guadalajara</a></li>
-            <li><a id="scl" href="">Santiago de Chile</a></li>
-            <li><a id="spl" href="">Sao Paulo</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-    <section id="showing">
-      <form>
-        <select id="program">
-          <option value="1">--Selecciona un programa--</option>
-          <option value="pre">Selección</option>
-          <option value="bc">Bootcamp</option>
-          <option value="ec">Educación Continua</option>
-          <option value="corp-training">Corporate Training</option>
-        </select>
-        <select id="generacion">
-          <option value="1">--Selecciona una generacion--</option>
-        </select>
-        <label>Buscar</label>
-        <input type="text" name="" id="">
-      </form>
-      <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Progreso</th>
-              <th>Exercicios</th>
-              <th>Lecturas</th>
-              <th>Quiz</th>
-            </tr>
-          </thead>
-          <tbody id="container-user">
-
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>Autor: Bella Aguirre y Geraldine Saco</footer>
-
+  <aside class="contenido-lateral">
+      
+      <select id="sede" class="form-control form-control-sm" >
+        <option value="">Selecciona una Sede</option>
+        <option value="lim"> Lima </option>
+        <option value="cdmx">México</option>
+        <option value="gdl">Guadalajara</option>
+        <option value="scl">Santiago de Chile</option>
+        <option value="spl">Sao Paulo</option>
+      </select>
+      <br>
+      <select id="programa"  class="form-control form-control-sm">
+        <option value="">--Selecciona un programa--</option>
+        <option value="pre">Selección</option>
+        <option value="bc">Bootcamp</option>
+        <option value="ec">Educación Continua</option>
+        <option value="corp-training">Corporate Training</option>
+      </select>
+      <br>
+      <select id="generacion" class="form-control form-control-sm">
+        <option value="1">--Selecciona una generacion--</option>
+      </select>
+      <br>
+      <label>Buscar</label>
+      <input type="text" id="search" class="form-control form-control-sm">
+      <br>
+      <select id="orderBy" class="form-control form-control-sm">
+        <option value="name">Nombre</option>
+        <option value="percent">Progreso</option>
+        <option value="exercises">Ejercicios</option>
+        <option value="quizzes">Quizzes</option>
+        <option value="quizzesAvg">PromedioScore</option>
+        <option value="reads">Lecturas</option>
+      </select>
+      <br>
+      <select id="orderDirection" class="form-control form-control-sm">
+        <option value="asc">Ascendente</option>
+        <option value="desc">Descendente</option>
+      </select>
+      <br>
+      <button id="ordenar" class="btn btn-info">Ordenar</button>
+  </aside>
+  <section id="showing" class="contenido row">
+  </section>
+  <footer class="pie-pagina">Autor: Bella Aguirre y Geraldine Saco</footer>
   <script src="data.js"></script>
   <script src="main.js"></script>
 </body>
-
 </html>
