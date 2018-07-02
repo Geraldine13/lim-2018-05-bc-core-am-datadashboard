@@ -1,10 +1,11 @@
 const sedeSelect = document.getElementById('sede');
-const generationSelect = document.getElementById('generacion');
+const generacion = document.getElementById('generacion');
 const selectProgram = document.getElementById('programa');
+const stringSearch = document.getElementById('search');
 const selectOrderDirection = document.getElementById('orderDirection');
 const selectOrderBy = document.getElementById('orderBy');
-const stringSearch = document.getElementById('search');
 const ordenar = document.getElementById('ordenar')
+
 var sectionContentStudents = document.getElementById("showing");
 
 let options = {
@@ -17,40 +18,6 @@ let options = {
   orderDirection: '',
   search: '',
 
-}
-function getUsers() {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
-  xhr.onload = function () {
-    const usersData = JSON.parse(event.currentTarget.responseText);
-    const xhrCohorts = new XMLHttpRequest();
-    xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
-    xhrCohorts.onload = function () {
-      const progress = JSON.parse(event.currentTarget.responseText);
-      const users = [];
-      usersData.map(user => {
-        if (generationSelect.value === user.signupCohort) {
-          users.push(user);
-        }
-      })
-      addUser(users, progress)
-    }
-    xhrCohorts.onerror = handleError;
-    xhrCohorts.send();
-  };
-  xhr.onerror = handleError;
-  xhr.send();
-}
-function handleError() {
-  console.log('se ha presentado un error');
-}
-//obteniendo data cohorts
-function getCohorts(callback) {
-  const xhrCohorts = new XMLHttpRequest();
-  xhrCohorts.open('GET', `../data/cohorts.json`);
-  xhrCohorts.onload = callback;
-  xhrCohorts.onerror = handleError;
-  xhrCohorts.send();
 }
 function pasarDatos(users, progress, cohortSelect) {
   options.cohort = cohortSelect[0];
@@ -77,6 +44,40 @@ function pasarDatos(users, progress, cohortSelect) {
     dataTable(userfilter);
   })
 }
+function getUsers() {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/users.json`);
+  xhr.onload = function () {
+    const usersData = JSON.parse(event.currentTarget.responseText);
+    const xhrCohorts = new XMLHttpRequest();
+    xhrCohorts.open('GET', `../data/cohorts/lim-2018-03-pre-core-pw/progress.json`);
+    xhrCohorts.onload = function () {
+      const progress = JSON.parse(event.currentTarget.responseText);
+      const users = [];
+      usersData.map(user => {
+        if (generacion.value === user.signupCohort) {
+          users.push(user);
+        }
+      })
+      addUser(users, progress)
+    }
+    xhrCohorts.onerror = handleError;
+    xhrCohorts.send();
+  };
+  xhr.onerror = handleError;
+  xhr.send();
+}
+function handleError() {
+  console.log('se ha presentado un error');
+}
+//obteniendo data cohorts
+function getCohorts(callback) {
+  const xhrCohorts = new XMLHttpRequest();
+  xhrCohorts.open('GET', `../data/cohorts.json`);
+  xhrCohorts.onload = callback;
+  xhrCohorts.onerror = handleError;
+  xhrCohorts.send();
+}
 function addUser(users, progress) {
   getCohorts(() => {
     const dataCohorts = JSON.parse(event.target.responseText);
@@ -88,6 +89,7 @@ function addUser(users, progress) {
     }
     pasarDatos(users, progress, cohortSelect);
   })
+
 }
 
 function dataTable(datos) {
@@ -99,11 +101,11 @@ function dataTable(datos) {
     const newDivName = document.createElement('div');
     const divPrincipal = document.createElement('div');
     //creando atributos a los div
-    newDivStudent.setAttribute('id', 'div-student');
-    newDivStudent.setAttribute('class', 'div-content');
-    newDivName.setAttribute('class', 'div-name');
-    newDivProgress.setAttribute('class', 'div-progress');
-    divPrincipal.setAttribute('class', 'col-md-4');
+    newDivStudent.setAttribute('id','div-student');
+    newDivStudent.setAttribute('class','div-content')
+    newDivName.setAttribute('class','div-name');
+    newDivProgress.setAttribute('class','div-progress');
+    divPrincipal.setAttribute('class','col-md-4');
 
     //creando etiqueta p y li
     const etiquetaName = document.createElement('p');
@@ -115,7 +117,7 @@ function dataTable(datos) {
     //creando contenido
     const newContentName = document.createTextNode(datos[i].name);
     const newContentPercentProgress = document.createTextNode('Progreso General: ' + datos[i].stats.percent + '%');
-    const newContentPercentReads = document.createTextNode('% Lecturas: ' + datos[i].stats.reads.percent + '%');
+    const newContentPercentReads = document.createTextNode('% Lecturas: ' + datos[i].stats.reads.percent + '%'); 
     const newContentPercentExercises = document.createTextNode('% Ejercicios: ' + datos[i].stats.exercises.percent + '%');
     const newContentPercentQuizzes = document.createTextNode('% Quizzes: ' + datos[i].stats.quizzes.percent + '%');
     //añadiendo contenido a cada item de la lista
@@ -131,9 +133,9 @@ function dataTable(datos) {
     //añadiendo lista a un div
     newDivProgress.appendChild(newList);
 
-    etiquetaName.appendChild(newContentName);
+    etiquetaName.appendChild(newContentName); 
     newDivName.appendChild(etiquetaName);
-
+    
     newDivStudent.appendChild(newDivName);
     newDivStudent.appendChild(newDivProgress);
 
@@ -141,7 +143,6 @@ function dataTable(datos) {
     sectionContentStudents.appendChild(divPrincipal);
   }
 }
-
 function filterSelect() {
   getCohorts((e) => {
     const dataCohorts = JSON.parse(e.target.responseText);
