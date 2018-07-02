@@ -1,5 +1,5 @@
 window.computeUsersStats = (users, progress, courses) => {
-console.log(courses);
+  //console.log(courses);
 
   const usersWithStats = users.map(user => {
     const percentProgress = () => {
@@ -48,12 +48,11 @@ console.log(courses);
                   if (progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].hasOwnProperty('completed')) {
                     completed.push(progress[user.id][course].units[leccion].parts[lectura].exercises[exercise].completed);
                   }
-                })
+                });
               }
-            })
-          })
+            });
+          });
         }
-
       });
       return completed.reduce((a, b) => a + b, initial)
     }
@@ -168,79 +167,75 @@ console.log(courses);
         return Math.round(scoreSumQuizzes() / completedQuizzes());
       }
     }
-    const stats = {
-      name: user.name,
-      stats: {
-        percent: percentProgress(),
-        exercises: {
-          total: exercisesTotal(),
-          completed: exercisesCompleted(),
-          percent: percentExercises(),
-        },
-        reads: {
-          total: totalReads(),
-          completed: completedReads(),
-          percent: percentReads(),
-        },
-        quizzes: {
-          total: totalQuizzes(),
-          completed: completedQuizzes(),
-          percent: percentQuizzes(),
-          scoreSum: scoreSumQuizzes(),
-          scoreAvg: scoreAvgQuizzes(),
-        }
+    user.stats = {
+      percent: percentProgress(),
+      exercises: {
+        total: exercisesTotal(),
+        completed: exercisesCompleted(),
+        percent: percentExercises(),
+      },
+      reads: {
+        total: totalReads(),
+        completed: completedReads(),
+        percent: percentReads(),
+      },
+      quizzes: {
+        total: totalQuizzes(),
+        completed: completedQuizzes(),
+        percent: percentQuizzes(),
+        scoreSum: scoreSumQuizzes(),
+        scoreAvg: scoreAvgQuizzes(),
       }
-    };
+    }
     // console.log(stats)
-    return stats;
+    return user;
   });
   //console.log(usersWithStats)
   return usersWithStats;
 }
 window.sortUsers = (users, orderBy, orderDirection) => {
-
+  const orderByName = users.sort(function (a, b) {
+    var x = a.name.toLowerCase();
+    var y = b.name.toLowerCase();
+    if (x < y) { return -1; }
+    if (x > y) { return 1; }
+    return 0;
+  });
   if (orderBy === 'name' & orderDirection === 'asc') {
-    const orderByName = users.sort(function (a, b) {
-      var x = a.name.toLowerCase();
-      var y = b.name.toLowerCase();
-      if (x < y) { return -1; }
-      if (x > y) { return 1; }
-      return 0;
-    });
+    // console.log(orderByName)
     return orderByName;
   } else if (orderBy === 'name' & orderDirection === 'desc') {
-    const nuevo = users.sort(function (a, b) {
-      var x = a.name.toLowerCase();
-      var y = b.name.toLowerCase();
-      if (x > y) { return -1; }
-      if (x < y) { return 1; }
-      return 0;
-    });
-    return nuevo;
+    return orderByName.reverse();
   } else if (orderBy === 'percent' & orderDirection === 'asc') {
-    const order = users.sort(function (a, b) { return a.stats.percent - b.stats.percent });
+    const order = orderByName.sort(function (a, b) { return a.stats.percent - b.stats.percent });
     return order;
   } else if (orderBy === 'percent' & orderDirection === 'desc') {
-    const order = users.reverse();
+    const order = users.sort(function (a, b) { return b.stats.percent - a.stats.percent });
     return order;
   } else if (orderBy === 'exercises' & orderDirection === 'asc') {
-    const order = users.sort(function (a, b) { return a.stats.exercises.percent - b.stats.exercises.percent });
+    const order = users.sort(function (a, b) { return a.stats.exercises.completed - b.stats.exercises.completed });
     return order;
   } else if (orderBy === 'exercises' & orderDirection === 'desc') {
-    const order = users.reverse();
-    //console.log(order);
+    const order = users.sort(function (a, b) { return b.stats.exercises.completed - a.stats.exercises.completed });
+    return order;
   } else if (orderBy === 'quizzes' & orderDirection === 'asc') {
-    const order = users.sort(function (a, b) { return a.stats.quizzes.percent - b.stats.quizzes.percent });
-    //console.log(order);
+    const order = users.sort(function (a, b) { return a.stats.quizzes.completed - b.stats.quizzes.completed });
+    return order;
   } else if (orderBy === 'quizzes' & orderDirection === 'desc') {
-    const order = users.reverse();
-    //console.log(order);
+    const order = users.sort(function (a, b) { return b.stats.quizzes.completed - a.stats.quizzes.completed });
+    return order;
+  } else if (orderBy === 'quizzesAvg' & orderDirection === 'asc') {
+    const order = users.sort(function (a, b) { return a.stats.quizzes.scoreAvg - b.stats.quizzes.scoreAvg });
+    return order;
+  } else if (orderBy === 'quizzesAvg' & orderDirection === 'desc') {
+    const order = users.sort(function (a, b) { return b.stats.quizzes.scoreAvg - a.stats.quizzes.scoreAvg });
+    return order;
   } else if (orderBy === 'reads' & orderDirection === 'asc') {
-    const order = users.sort(function (a, b) { return a.stats.reads.percent - b.stats.reads.percent });
-    //console.log(order);
+    const order = users.sort(function (a, b) { return a.stats.reads.completed - b.stats.reads.completed });
+    return order;
   } else if (orderBy === 'reads' & orderDirection === 'desc') {
-    const order = users.reverse();
-    //console.log(order);
+    const order = users.sort(function (a, b) { return b.stats.reads.completed - a.stats.reads.completed });
+    return order;
   }
 
 
@@ -250,16 +245,15 @@ window.filterUsers = (users, search) => {
   const userFilter = users.filter(user => {
     return user.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
   });
-  //console.log(userFilter);
   return userFilter;
 }
-window.processCohortData = (options) => {
-  const courses =Object.keys(options.cohort.coursesIndex)
+window.processCohortData = (options) => {  
+  const courses = Object.keys(options.cohort.coursesIndex)
   let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, courses);
   estudiantes = sortUsers(estudiantes, options.orderBy, options.orderDirection);
   if (options.search !== '') {
     estudiantes = filterUsers(options.cohortData.users, options.search);
-  }
+  }  
   return estudiantes;
 
 }

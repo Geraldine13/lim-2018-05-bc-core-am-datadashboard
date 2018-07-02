@@ -70,32 +70,36 @@ hr {
          width: calc(100% - 100px)
      }
  }
-
- .table{
-     border-collapse: collapse;
-     min-width: 500px;
-     max-height: 300px;
- }
- .table td,th{
-     border: 1px solid #000;
-     padding: 10px;
- }
- .table tr:hover{
-     background:#ccc;
- }
- .table td:hover{
-     background: #888;
-     color: black;
- }
 #generacion {
     width: 160px;
 }
 option{
     width: 100px;
 }
-
-
-
+/*estilos div */
+.div-content {
+    width: 200px;
+    padding: 20px;
+    margin: 0;
+}
+p , ul{
+    width: 200px;
+    padding: 1em;
+    margin: 0;
+}
+#div-student{
+    width: 100%
+}
+#div-student .div-name,#div-student .div-progress{
+    display: table-cell;
+    border: 1px solid;
+} 
+.div-name{
+    background: beige;
+}
+.div-progress{
+    background:bisque;
+}
 
 
 

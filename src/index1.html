@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Data Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://scontent-scl1-1.xx.fbcdn.net/v/t1.15752-9/35142656_1705344299514252_5863557290291888128_n.png?_nc_cat=0&oh=2951acd9c2c492451ab4132eb974b4a7&oe=5BB35433"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <style type="text/css">
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #header {
+      margin: auto;
+      width: 500px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    .nav {
+      width: 500px;
+      /*Le establecemos un ancho*/
+      margin: 0 auto;
+      /*Centramos automaticamente*/
+    }
+
+    .nav>li {
+      float: left;
+    }
+
+    .nav li a {
+      background-color: #000;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 12px;
+      display: block;
+    }
+
+    .nav li a:hover {
+      background-color: #434343;
+    }
+
+    .nav li ul {
+      display: none;
+      position: absolute;
+      min-width: 140px;
+    }
+
+    .nav li:hover>ul {
+      display: block;
+    }
+
+    .nav li ul li {
+      position: relative;
+    }
+
+    .nav li ul li ul {
+      right: -140px;
+      top: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="logo">
+      <img src="img/logo.png" alt="Logo de Laboratoria">
+    </div>
+  </header>
+  <main class="container">
+    <nav id="verticalBar">
+      <ul class="nav">
+        <li>
+          <a href="">Sede</a>
+          <ul>
+            <li id="sede" value="lim"><a href=""> Lima</a></li>
+            <li><a href="">México</a></li>
+            <li><a href="">Guadalajara</a></li>
+            <li><a href="">Santiago de Chile</a></li>
+            <li><a href="">Sao Paulo</a></li>
+          </ul>
+        </li>
+      </ul>
+      <select name="programa">
+        <option value="1">--Selecciona un programa--</option>
+        <option value="seleccion">Selección</option>
+        <option value="bootcamp">Bootcamp</option>
+        <option value="educontinua">Educación Continua</option>
+        <option value="corp-training">Corporate Training</option>
+      </select>
+      <select id="generacion">
+        <option value="1">--Selecciona una generacion--</option>
+      </select>
+      <label>Buscar</label> 
+      <input type="text" id="search"><button type="button" id="btnsearch">buscar</button>
+      <select id="orderBy">
+        <option value="name">Nombre</option>
+        <option value="percent">Progreso</option>
+        <option value="exercises">Ejercicios</option>
+        <option value="quizzes">Quizzes</option>
+        <option value="reads">Lecturas</option>
+      </select>
+      <select id="orderDirection">
+        <option value="asc">Ascendente</option>
+        <option value="desc">Descendente</option>
+      </select>
+      <button id="ordenar">ordenar</button>
+    </nav>
+    <section id="showing">
+      
+    </section>
+
+  </main>
+
+  <footer>Autor: Bella Aguirre y Geraldine Saco</footer>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
