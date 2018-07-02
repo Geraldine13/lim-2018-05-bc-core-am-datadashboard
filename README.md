@@ -1,168 +1,48 @@
-# Data Dashboard
+# Data Dashboard del Proceso de Aprendizaje en el LMS
 
-## Preámbulo
+## Definición del Producto
 
-En Laboratoria, las Training Managers (TMs) hacen un gran trabajo al analizar la
-mayor cantidad de datos posibles respecto al progreso de las estudiantes para
-apoyarlas en su aprendizaje.
+A solicitud de Laboratoria, realizamos un Data Dashboard con la finalidad de ayudar y optimizar el análisis a
+las Training Managers (TMs) respecto al progreso del aprendizaje de las estudiantes en la plataforma LMS.
 
-La principal medida de progreso de una estudiante en Laboratoria es su avance
-completando los proyectos de la [Ruta de Aprendizaje](https://docs.google.com/spreadsheets/d/1AoXQjZnZ5MTPwJPNEGDyvn5vksiOUoPr932TjAldTE4/edit#gid=536983970)
-y su desempeño en función a la [Rúbrica de Niveles Esperados](https://docs.google.com/spreadsheets/d/e/2PACX-1vSkQy1waRpQ-16sn7VogiDTy-Fz5e7OSZSYUCiHC_bkLAKYewr4L8pWJ_BG210PeULe-TjLScNQQT_x/pubhtml).
-Sin embargo, para completar estos proyectos las estudiantes acceden a contenidos
-de aprendizaje (lecturas, videos, ejercicios y quizzes) en un sistema que
-llamamos LMS (Learning Management System). El LMS acumula data sobre quién
-leyó qué, qué ejercicios se han completado, los resultados de los quizzes, etc.
+El LMS acumula data sobre quién leyó qué, qué ejercicios se han completado, los resultados de los quizzes, etc.
 
-A pesar de que la data de progreso del LMS (ej. lecturas leídas, ejercicios
-  completados, nota en quizzes, etc.) no impacta directamente en la evaluación
-  de una estudiante, sí es una pieza de información relevante que las TMs
-  quisieran visualizar para tener un mejor entendimiento de cómo va cada
-  estudiante en su proceso de aprendizaje.
+ 1.¿Quiénes son los principales usuarios de producto?
+     Son los Training Managers de cada una de las Sedes de Laboratoria.
 
-Así, el reto de este proyecto es crear una interfaz donde las TMs puedan
-_ver_ y _usar_ la data de progreso del LMS. Para ello, proponemos crear un
-**data dashboard** (_tablero de visualización de datos_).
+ 2.¿Cuáles son los objetivos de estos usuarios en relación con el producto?
+    - Manejar la información de una manera clara y ágil.
+    - Permitir el análisis de los datos para implementar acciones con la finalidad de ayudar a las estudiantes en su aprendizaje.
+    - Observar la proactividad del aprendizaje con el progreso de las Lecturas de los Cursos.
+    
+ 3.¿Cuáles son los datos más relevantes que quieren ver en la interfaz y por qué?
+      En la entrevista, nuestra TM Alejandra Ramírez; indicó que los _datos más importantes es el desarrollo de los ejercicios_, ya que con ello puede medir si las estudiantes están aplicando lo aprendido con la teoría y estar preparadas de lo ya practicado para afrontar el proceso de los proyectos a realizar.
 
-## Introducción
+ 4.¿Cuándo revisan normalmente estos datos los usuarios?
+      Necesariamente lo revisan al finalizar los Proyectos, para ver resultados en general. Sin embargo; pueden ingresar al término de cada sprint con la presentación de los Demos, para ver el avance de ejercicios y/o lecturas.
 
-Según un [estudio de IBM](https://www-01.ibm.com/common/ssi/cgi-bin/ssialias?htmlfid=WRL12345USEN),
-el 90% de la data que existe hoy ha sido creada en los últimos dos años.
-Cada día generamos 2.5 trillones de bytes de datos, una cifra sin precedentes.
+ 5.¿Cómo crees que el producto les está resolviendo sus problemas?
+      El producto, inicialmente se visualizará la data de las estudiantes en forma general, mostrando porcentajes de los siguientes indicadores:
 
-Sin embargo, los datos por sí solos son de poca utilidad. Para transformar datos
-en **información** necesitamos procesarlos y entenderlos. Una manera muy
-sencilla de hacerlo es creando _visualizaciones_. Las
-empresas líderes de hoy generan visualizaciones dinámicas de su data
-que les permiten entender mejor su negocio y tomar decisiones apropiadas.
+      - Completitud general de todos los Cursos. 
+      - Ejercicios completados.
+      - Lecturas completadas.
+      - Quizzes completadas.
 
-En este proyecto tendrás tu primer acercamiento a transformar data en
-información creando tu primer **data dashboard**.
+      Así mismo, les permitirá ordenar la lista de estudiantes, de acuerdo a su requerimiento por Nombre, por completitud, ejercicios, quizzes, puntuación promedio y lecturas completadas.
 
-Si pensamos en un _dashboard_ podemos pensar en el tablero de control de un auto
-o el de un avión. Un espacio desde el cual un usuario puede tener acceso a la
-información y controles más relevantes, en este caso, del vehículo que está
-utilizando. El _dashboard_ de un auto le permite a quien conduce saber a qué
-velocidad está yendo, qué cambio/velocidad está utilizando, cuánto combustible
-tiene disponible, cuál es la temperatura del motor, cuántas revoluciones por
-minuto dan las ruedas, cuánta distancia ha recorrido, etc.
+      También tendrán la opción de filtrado de una o varias estudiantes, según el criterio de búsqueda.
 
-![car dashboard](https://img.buzzfeed.com/buzzfeed-static/static/2017-02/7/12/enhanced/buzzfeed-prod-fastlane-03/original-17515-1486490056-3.jpg?crop=2041:1068;80,248)
+  6.¿Cómo fue tu proceso de diseño?
+      Nuestro proceso inició partiendo de la presentación general que dió nuestra TM a todas las estudiantes, a partir de los datos obtenidos diseñamos un sketch y se lo presentamos a Alejandra, quién nos dió su feedback con los cambios a realizar.
 
-## Aplicaciones en el mundo real
+      Diseñamos una estructura básica en HTML para las presentaciones Demo y posteriormente fuimos centrándonos posteriormente en todo el desarrollo de la funcionalidad.
 
-En el mundo de la web es muy común el uso de _dashboards_. De hecho, [wikipedia](https://goo.gl/P7PF4y)
-nos dice que un _dashboard_ puede ser un resumen gráfico de varias piezas de
-información importante, generalmente utilizadas para dar una visión general de
-una empresa o de un servicio. Así, tenemos dashboards como los de:
+## Sketch de la solución (prototipo de baja fidelidad)
 
-* [Google Analytics](https://assets.econsultancy.com/images/resized/0003/3813/mobile_commerce_dashboard-blog-full.png)
-  para visualizar la data de tráfico de sitios web.
+Se realizó un _sketch_ de nuestra solución, el cúal se lo mostramos a continuación:
 
-* [Mailchimp](https://blog.mailchimp.com/wp-content/uploads/2016/11/Dashboard-view-3-Copy-1008x768.jpg)
-  para visualizar el desempeño de campañas de mercadeo digital por correo
-  electrónico.
-
-* [Quickbooks](https://quickbooks.intuit.com/content/dam/intuit/quickbooks/branding/make-organization-easy-visual.png)
-  para visualizar la información financiera de una empresa.
-
-Seguramente, a lo largo de tu carrera como diseñadora o desarrolladora, te
-tocará crear un _data dashboard_. Quizás sea para visualizar la data de un
-negocio de delivery de comida, o las rutas históricas de un negocio de
-transporte, o simplemente los indicadores clave de tu propio emprendimiento ;)
-
-## Objetivos de aprendizaje
-
-El objetivo principal de este proyecto es que aprendas a diseñar y construir una
-_interfaz web_ donde podamos visualizar y manipular data.
-
-Esperamos que puedas pensar en el usuario, entender cuál es la mejor manera de visualizar la data según sus necesidades, y plasmar todo eso en tu diseño
-en la web.
-
-Además, este proyecto se debe "resolver" en parejas, por lo que un objetivo
-importante es ganar experiencia en trabajos colaborativos con entrega grupal.
-
-## Tópicos a cubrir
-
-Tendrás que familiarizarte con conceptos como:
-_arrays_,_objects_, _dom_, _xhr_ y _visual design_.
-
-Además, reforzarás lo aprendido en el proyecto anterior: _valores, tipos,
-variables_, _control de flujo_ y _tests unitarios_.
-
-## Consideraciones generales
-
-La lógica del proyecto debe estar implementada completamente en JavaScript
-(ES6), HTML y CSS. En este proyecto NO está permitido usar librerías o
-frameworks, solo [vanilla JavaScript](https://medium.com/laboratoria-how-to/vanillajs-vs-jquery-31e623bbd46e).
-
-No se debe utilizar la _pseudo-variable_ `this`.
-
-Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_
-y _lines_, y un mínimo del 50% de _branches_. El _boilerplate_ ya contiene el
-setup y configuración necesaria para ejecutar los tests (pruebas) usando el
-comando `npm test`.
-
-Para comenzar tendrás que hacer un _fork_ y _clonar_ este repositorio que
-contiene el _boilerplate_.
-
-El _boilerplate_ contiene una estructura de archivos como punto de partida así
-como toda la configuración de dependencias y tests de ejemplo:
-
-```text
-./
-├── .editorconfig
-├── .eslintrc
-├── .gitignore
-├── README.md
-├── data
-│   ├── cohorts
-│   │   └── lim-2018-03-pre-core-pw
-│   │       ├── progress.json
-│   │       └── users.json
-│   └── cohorts.json
-├── package.json
-├── src
-│   ├── data.js
-│   ├── index.html
-│   ├── main.js
-│   └── style.css
-└── test
-    ├── data.spec.js
-    ├── fixtures.js
-    ├── headless.js
-    └── index.html
-```
-
-La carpeta `data/` dentro del _boilerplate_ incluye un extracto de la data que
-podemos usar tanto en los tests como en la interfaz en sí.
-
-## Entregables
-
-Los criterios mínimos de aceptación para considerar que has completado este
-proyecto son:
-
-### User Experience Design
-
-#### 1) Definición del producto
-
-En el `README.md` cuéntanos cómo pensaste y te acercaste a los usuarios al
-desarrollar tu producto (Tip: entrevistas) y cuál fue tu proceso para definir
-el producto final a nivel de experiencia y de interfaz. Es importante que
-detalles:
-
-* Quiénes son los principales usuarios de producto.
-* Cuáles son los objetivos de estos usuarios en relación con el producto.
-* Cuáles son los datos más relevantes que quieren ver en la interfaz y
-  por qué. Cómo los descubriste.
-* Cuándo revisan normalmente estos datos los usuarios.
-* Cómo crees que el producto les está resolviendo sus problemas.
-* Cómo fue tu proceso de diseño.
-
-#### 2) Sketch de la solución (prototipo de baja fidelidad)
-
-Debes hacer un _sketch_ (boceto) de tu solución usando papel y lápiz, tomarle
-una foto, subirla a tu repositorio y hacer mención del _sketch_ en tu `README.md`.
+![dashboard1]()
 
 #### 3) Diseño de la Interfaz de Usuario (prototipo de alta fidelidad)
 
