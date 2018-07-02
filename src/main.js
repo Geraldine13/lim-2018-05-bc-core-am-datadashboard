@@ -1,5 +1,5 @@
 const sedeSelect = document.getElementById('sede');
-const generacion = document.getElementById('generacion');
+const generationSelect = document.getElementById('generacion');
 const selectProgram = document.getElementById('programa');
 const stringSearch = document.getElementById('search');
 const selectOrderDirection = document.getElementById('orderDirection');
@@ -55,7 +55,7 @@ function getUsers() {
       const progress = JSON.parse(event.currentTarget.responseText);
       const users = [];
       usersData.map(user => {
-        if (generacion.value === user.signupCohort) {
+        if (generationSelect.value === user.signupCohort) {
           users.push(user);
         }
       })
@@ -83,7 +83,7 @@ function addUser(users, progress) {
     const dataCohorts = JSON.parse(event.target.responseText);
     const cohortSelect = [];
     for (cohort of dataCohorts) {
-      if (cohort.id === generacion.value) {
+      if (cohort.id === generationSelect.value) {
         cohortSelect.push(cohort);
       }
     }
@@ -166,8 +166,8 @@ function filterSelect() {
 
       selectProgram.addEventListener('change', function (e) {
         // generacion.innerHTML = ''
-        document.innerHTML = generacion.value = '0'; // fijar opción de selección
-        document.innerHTML = generacion.length = 1; // elimina la opción anterior seleccionada
+        document.innerHTML = generationSelect.value = '0'; // fijar opción de selección
+        document.innerHTML = generationSelect.length = 1; // elimina la opción anterior seleccionada
         let valueProgram = selectProgram.value;
         let endFilter = filterSede(valueProgram);
         for (i in endFilter) {
