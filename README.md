@@ -55,9 +55,9 @@ Se realizó un _sketch_ de nuestra solución, adjuntamos las fotos a continuaci�
 
 Para el diseño de nuestro prototipo de alta fidelidad utilizamos Figma. Adjuntamos los pantallazos y el [link](https://www.figma.com/proto/erdCktljv44mXaoBPZbi3ib2/Data-Dashboard-Laboratoria?scaling=min-zoom&node-id=22%3A0):
 
-![db1](../img/db1.jpg)
+![db1](/img/db1.jpg)
 
-![db2](../img/db2.jpg)
+![db2](/img/db2.jpg)
 
 ![db3](../img/db3.jpg)
 
