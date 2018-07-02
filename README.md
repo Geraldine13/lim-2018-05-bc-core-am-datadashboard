@@ -44,11 +44,11 @@ El LMS acumula data sobre quién leyó qué, qué ejercicios se han completado, 
 
 Se realizó un _sketch_ de nuestra solución, adjuntamos las fotos a continuación:
 
-![dashboard1](sketch1.jpg)
+![dashboard1](../img/sketch1.png)
 
-![dashboard2](sketch2.jpg)
+![dashboard2](img/sketch2.png)
 
-![dashboard3](sketch3.jpg)
+![dashboard3](/img/sketch3.png)
 
 
 ## Diseño de la Interfaz de Usuario (prototipo de alta fidelidad)
