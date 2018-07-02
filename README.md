@@ -50,6 +50,14 @@ El LMS acumula data sobre quién leyó qué, qué ejercicios se han completado, 
 
     Diseñamos una estructura básica en HTML para las presentaciones Demo y posteriormente fuimos centrándonos en el desarrollo de la funcionalidad, usando la técnica recomendada _pair programming_.
 
+    Para la planificación usamos el tablero Kanban con nuestro squad:
+
+    ![tablero](https://s8.postimg.cc/4t78znced/tablero_kanban.jpg)
+
+    A nivel de pareja, empleamos Trello:
+
+    ![trello](https://s8.postimg.cc/55yn5xx9x/trello.png)
+
 
 ## Sketch de la solución (prototipo de baja fidelidad)
 

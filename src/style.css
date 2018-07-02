@@ -19,7 +19,7 @@ body{
 .contenido-lateral{
   width: 20%;
   background-color: #ffc107;
-  height: 512px;
+  height: 655px;
   font-family: 'Bitter' serif;
   margin: 0.5em 0 0 0;
 }
@@ -32,6 +32,7 @@ body{
 .pie-pagina{
   width: 100%;
   background-color: black;
+  color: white;
   height: 50px;
 }
 @media screen and (min-width: 789px) and (max-width: 1024px){
@@ -96,12 +97,15 @@ li{
   display: table-cell;
 } 
 .div-name{
-  background: beige;
+  background:  #56f89a;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  font-family: 'Open Sans', sans-serif;
 }
 .div-progress{
-  background:bisque;
+  background: #FF009E;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
   border-top-right-radius: 10px;
