@@ -1,6 +1,4 @@
 window.computeUsersStats = (users, progress, courses) => {
-  //console.log(courses);
-
   const usersWithStats = users.map(user => {
     const percentProgress = () => {
       const percent = [];
@@ -187,10 +185,8 @@ window.computeUsersStats = (users, progress, courses) => {
         scoreAvg: scoreAvgQuizzes(),
       }
     }
-    // console.log(stats)
     return user;
   });
-  //console.log(usersWithStats)
   return usersWithStats;
 }
 window.sortUsers = (users, orderBy, orderDirection) => {
@@ -237,8 +233,6 @@ window.sortUsers = (users, orderBy, orderDirection) => {
     const order = users.sort(function (a, b) { return b.stats.reads.completed - a.stats.reads.completed });
     return order;
   }
-
-
 }
 
 window.filterUsers = (users, search) => {
@@ -247,13 +241,12 @@ window.filterUsers = (users, search) => {
   });
   return userFilter;
 }
-window.processCohortData = (options) => {  
+window.processCohortData = (options) => {
   const courses = Object.keys(options.cohort.coursesIndex)
   let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, courses);
   estudiantes = sortUsers(estudiantes, options.orderBy, options.orderDirection);
   if (options.search !== '') {
     estudiantes = filterUsers(options.cohortData.users, options.search);
-  }  
+  }
   return estudiantes;
-
 }
