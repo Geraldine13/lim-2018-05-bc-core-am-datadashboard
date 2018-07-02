@@ -44,30 +44,30 @@ El LMS acumula data sobre quién leyó qué, qué ejercicios se han completado, 
 
 Se realizó un _sketch_ de nuestra solución, adjuntamos las fotos a continuación:
 
-![dashboard1](https://ibb.co/dhNTZy)
+![dashboard1](https://s33.postimg.cc/pgn20quan/sketch1.jpg)
 
-![dashboard2](img/sketch2.png)
+![dashboard2](https://s33.postimg.cc/a7x4myl6n/sketch2.jpg)
 
-![dashboard3](/img/sketch3.png)
+![dashboard3](https://s33.postimg.cc/v4tcrmqxb/sketch3.jpg)
 
 
 ## Diseño de la Interfaz de Usuario (prototipo de alta fidelidad)
 
 Para el diseño de nuestro prototipo de alta fidelidad utilizamos Figma. Adjuntamos los pantallazos y el [link](https://www.figma.com/proto/erdCktljv44mXaoBPZbi3ib2/Data-Dashboard-Laboratoria?scaling=min-zoom&node-id=22%3A0):
 
-![db1](https://ibb.co/cF37SJ)
+![db1](https://s33.postimg.cc/jeffa35sv/db1.jpg)
 
-![db2](/img/db2.jpg)
+![db2](https://s33.postimg.cc/7dtz98gcv/db2.jpg)
 
-![db3](../img/db3.jpg)
+![db3](https://s33.postimg.cc/599m8chcv/db3.jpg)
 
-![db4](../img/db4.jpg)
+![db4](https://s33.postimg.cc/6bjsqxi6n/db4.jpg)
 
-![db5](../img/db5.jpg)
+![db5](https://s33.postimg.cc/j2xyxfzof/db5.jpg)
 
-![db6](../img/db6.jpg)
+![db6](https://s33.postimg.cc/pgn20pca7/db6.jpg)
 
-![db7](../img/db7.jpg)
+![db7](https://s33.postimg.cc/pteg6w29r/db7.jpg)
 
 ## Autor
 
