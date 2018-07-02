@@ -44,7 +44,7 @@ El LMS acumula data sobre quién leyó qué, qué ejercicios se han completado, 
 
 Se realizó un _sketch_ de nuestra solución, adjuntamos las fotos a continuación:
 
-![dashboard1](../img/sketch1.png)
+![dashboard1](C:\Users\GeraldineSaco\Documents\lim-2018-05-bc-core-am-datadashboard\src\img\sketch1.png)
 
 ![dashboard2](img/sketch2.png)
 
