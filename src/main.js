@@ -4,7 +4,8 @@ const selectProgram = document.getElementById('programa');
 const stringSearch = document.getElementById('search');
 const selectOrderDirection = document.getElementById('orderDirection');
 const selectOrderBy = document.getElementById('orderBy');
-const ordenar = document.getElementById('ordenar')
+const ordenar = document.getElementById('ordenar');
+const infoData = document.getElementById('info');
 
 var sectionContentStudents = document.getElementById("showing");
 
@@ -219,6 +220,7 @@ function filterSelect() {
       });
       generationSelect.addEventListener('change', function (e) {
         if (generationSelect.value === 'lim-2018-03-pre-core-pw') {
+          infoData.innerHTML = '   Cohort: ' + generationSelect.value;
           getUsers();
         } else {
           sectionContentStudents.innerHTML = '';
