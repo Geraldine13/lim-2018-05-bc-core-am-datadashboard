@@ -189,7 +189,6 @@ window.computeUsersStats = (users, progress, courses) => {
     return stats;
   });
   return usersWithStats;
-  console.log(usersWithStats)
 }
 window.sortUsers = (users, orderBy, orderDirection) => {
   const orderByName = users.sort(function (a, b) {
