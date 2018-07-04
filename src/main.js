@@ -56,7 +56,7 @@ function getUsers() {
       const progress = JSON.parse(event.currentTarget.responseText);
       const users = [];
       usersData.map(user => {
-        if (generationSelect.value === user.signupCohort) {
+        if (user.role === 'student') {
           users.push(user);
         }
       })

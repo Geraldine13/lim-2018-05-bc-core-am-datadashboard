@@ -78,14 +78,16 @@ img{
   margin: 0;
 }
 p{
-width: 110px;
+  width: 110px;
   padding: 1em;
   margin: 0;
+  font-size: 14px;
 }
 ul{
   width: 190px;
   padding:5px;
   margin: 0;
+  font-size: 14px;
 }
 li{
   list-style: none;

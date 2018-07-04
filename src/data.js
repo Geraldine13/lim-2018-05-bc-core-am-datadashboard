@@ -4,9 +4,7 @@ window.computeUsersStats = (users, progress, courses) => {
       const percent = [];
       courses.map(course => {
         if (progress[user.id] && Object.keys(progress[user.id]).length > 0 && !Array.isArray(progress[user.id])) {
-          if (progress[user.id][course].hasOwnProperty('percent')) {
             percent.push(progress[user.id][course].percent);
-          }
         }
       });
       if (percent[0] === undefined) {
@@ -165,7 +163,9 @@ window.computeUsersStats = (users, progress, courses) => {
         return Math.round(scoreSumQuizzes() / completedQuizzes());
       }
     }
-    user.stats = {
+    const stats = {
+    name: user.name,  
+    stats: {
       percent: percentProgress(),
       exercises: {
         total: exercisesTotal(),
@@ -185,7 +185,8 @@ window.computeUsersStats = (users, progress, courses) => {
         scoreAvg: scoreAvgQuizzes(),
       }
     }
-    return user;
+  }
+    return stats;
   });
   return usersWithStats;
 }
@@ -229,7 +230,7 @@ window.sortUsers = (users, orderBy, orderDirection) => {
   } else if (orderBy === 'reads' & orderDirection === 'asc') {
     const order = users.sort(function (a, b) { return a.stats.reads.completed - b.stats.reads.completed });
     return order;
-  } else if (orderBy === 'reads' & orderDirection === 'desc') {
+  } else {
     const order = users.sort(function (a, b) { return b.stats.reads.completed - a.stats.reads.completed });
     return order;
   }
@@ -246,7 +247,7 @@ window.processCohortData = (options) => {
   let estudiantes = computeUsersStats(options.cohortData.users, options.cohortData.progress, courses);
   estudiantes = sortUsers(estudiantes, options.orderBy, options.orderDirection);
   if (options.search !== '') {
-    estudiantes = filterUsers(options.cohortData.users, options.search);
+    estudiantes = filterUsers(estudiantes, options.search);
   }
   return estudiantes;
 }
